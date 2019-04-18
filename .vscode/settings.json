@@ -1,3 +1,5 @@
 {
-    "python.pythonPath": "djangovue\\Scripts\\python.exe"
+    "python.pythonPath": "djangovue\\Scripts\\python.exe",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true
 }
