@@ -11,5 +11,6 @@ router.register('posts_rating', views.Post_ratingView)
 router.register('comment_rating', views.Comment_ratingView)
 
 urlpatterns = [
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls'))
 ]

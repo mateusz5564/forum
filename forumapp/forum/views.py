@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from .models import Profile, Post, Comment, Post_rating, Comment_rating
 from django.contrib.auth.models import User
 from .serializers import UserAllDetailSerializer, UserDetailSerializer, ProfileSerializer, PostSerializer, CommentSerializer, Post_ratingSerializer, Comment_ratingSerializer
@@ -16,6 +16,7 @@ class ProfileView(viewsets.ModelViewSet):
 class PostView(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 class CommentView(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
@@ -31,3 +32,4 @@ class Comment_ratingView(viewsets.ModelViewSet):
 
 
 
+ 
