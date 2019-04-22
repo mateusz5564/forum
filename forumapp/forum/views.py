@@ -16,7 +16,7 @@ class ProfileView(viewsets.ModelViewSet):
 class PostView(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 class CommentView(viewsets.ModelViewSet):
     queryset = Comment.objects.all()

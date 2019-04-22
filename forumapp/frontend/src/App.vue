@@ -1,45 +1,40 @@
 <template>
-  <div id="app">
-    <h1>{{ msg }}</h1>
-  </div>
+<div>
+ <Post v-for="post in posts" :key="post.id" :post="post"> </Post>
+</div>
 </template>
 
 <script>
+import Post from './components/Post.vue';
+import axios from 'axios';
+
+const API = "http://127.0.0.1:8000/";
+
 export default {
-  name: 'app',
-  data () {
-    return {
-      msg: 'Forum humorystyczne'
-    }
-  }
+ name: 'app',
+ components: {
+   Post
+ },
+ data () {
+   return {
+     msg: "12345",
+     posts: []
+   }
+ },
+ mounted () {
+   axios
+     .get(`${API}posts/`)
+     .then(response => {
+       this.posts = response.data
+     })
+ },
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
+  body{
+    background-color: rgb(173, 162, 162);
+    display: flex;
+    justify-content: center;
+  }
 </style>
