@@ -14,7 +14,7 @@ class ProfileView(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
 
 class PostView(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
+    queryset = Post.objects.all().order_by('-created_at')
     serializer_class = PostSerializer
     # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 

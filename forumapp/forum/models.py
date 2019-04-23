@@ -9,7 +9,7 @@ def user_path(instance, filename):
     return 'avatar/%s/%s' % (instance.user.username, filename)
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete = models.CASCADE)
+    user = models.OneToOneField(User, related_name='profil', on_delete = models.CASCADE)
     bio = models.TextField(max_length=100, blank=True)
     location = models.CharField(max_length=30, blank=True)
     avatar = models.ImageField(upload_to=user_path, default="/avatar/default.jpg", blank=True)
@@ -33,7 +33,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    post = models.ForeignKey('Post', on_delete=models.CASCADE)
+    post = models.ForeignKey('Post', related_name='comments', on_delete=models.CASCADE)
     parent_id = models.ForeignKey('Comment', on_delete=models.CASCADE, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     content = models.TextField(max_length=300)
@@ -47,14 +47,14 @@ class Comment(models.Model):
 
 class Post_rating(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, related_name='post_likes', on_delete=models.CASCADE)
 
     def __str__(self):
         return "user: " + self.user.username + " | post_id: " + str(self.post.id)
 
 class Comment_rating(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment, related_name='comment_likes', on_delete=models.CASCADE)
     is_positive = models.BooleanField(default=True)
 
     def __str__(self):
