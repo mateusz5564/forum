@@ -7,12 +7,18 @@
     </div>
     <div class="text-wrapper">{{ post.text }}</div>
     <div class="interactions-wrapper">like | comments</div>
+    <Comment :post="post"/>
   </div>
 </template>
 
 <script>
+import Comment from './Comment.vue';
+
 export default {
-  props: ["post"]
+  props: ["post"],
+  components: {
+    Comment
+ },
 };
 </script>
 
@@ -25,6 +31,7 @@ export default {
   flex-direction: column;
   padding: 30px;
   justify-content: center;
+  box-shadow: 7px 15px 35px black;
 
   * {
     display: flex;
