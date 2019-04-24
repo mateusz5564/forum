@@ -46,6 +46,7 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'content',
+            'created_at',
             'comment_likes',
             'number_of_comment_likes',
             'number_of_comment_dislikes',

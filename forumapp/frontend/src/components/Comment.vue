@@ -1,32 +1,32 @@
 <template>
     <div class="comment-wrapper">
         <div class="user-avatar">
-            <img :src="post.user.profil.avatar" alt="obrazek">
+            <img :src="comment.user.profil.avatar" alt="obrazek">
         </div>
         <div class="comment-header">
-            {{ post.username }} {{ post.created_at }}
+            {{ comment.user.username }} {{ comment.created_at }}
         </div>
         <div class="comment-content">
-            {{ post.text }}
+            {{ comment.content }}
         </div>
         <div class="interaction-buttons">
             <button>like</button>
-            {{ post.comments.number_of_comment_likes }}
+            {{ comment.number_of_comment_likes }}
             <button>dislike</button>
-            {{ post.comments.number_of_comment_dislikes }}
+            {{ comment.number_of_comment_dislikes }}
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['post']
+        props: ['comment']
     }
 </script>
 
 <style lang="scss" scoped>
     .comment-wrapper {
-        height: 100px;
+        height: auto;
         width: 100%;
         background-color: blueviolet;
         .user-avatar img{

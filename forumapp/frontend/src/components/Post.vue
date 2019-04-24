@@ -7,7 +7,7 @@
     </div>
     <div class="text-wrapper">{{ post.text }}</div>
     <div class="interactions-wrapper">like | comments</div>
-    <Comment :post="post"/>
+    <Comment v-for="comment in post.comments" :key="comment.id" :comment="comment"/>
   </div>
 </template>
 
