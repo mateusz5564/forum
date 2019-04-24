@@ -34,7 +34,7 @@ class Post(models.Model):
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey('Post', related_name='comments', on_delete=models.CASCADE)
-    parent_id = models.ForeignKey('Comment', on_delete=models.CASCADE, null=True, blank=True)
+    parent_id = models.ForeignKey('Comment', related_name='children_comments', on_delete=models.CASCADE, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     content = models.TextField(max_length=300)
 

@@ -35,9 +35,17 @@ class Comment_ratingSerializer(serializers.ModelSerializer):
         model = Comment_rating
         fields = '__all__'
 
+class Children_comentSerializer(serializers.ModelSerializer):
+    user = UserAllDetailSerializer()
+
+    class Meta:
+        model = Comment
+        fields = ('user', 'content', 'created_at')
+
 class CommentSerializer(serializers.ModelSerializer):
     user = UserAllDetailSerializer()
     comment_likes = Comment_ratingSerializer(many=True)
+    children_comments = Children_comentSerializer(many=True)
     number_of_comment_likes = serializers.SerializerMethodField()
     number_of_comment_dislikes = serializers.SerializerMethodField()
 
@@ -45,13 +53,14 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = (
             'id',
+            'user',
             'content',
             'created_at',
             'comment_likes',
             'number_of_comment_likes',
             'number_of_comment_dislikes',
             'parent_id',
-            'user'
+            'children_comments'
         )
 
     def get_number_of_comment_likes(self, obj):
@@ -70,11 +79,11 @@ class Post_ratingSerializer(serializers.ModelSerializer):
 #Serializer tworzący API dla listy postów
 class PostSerializer(serializers.ModelSerializer):
     user = UserAllDetailSerializer()
-    comments = CommentSerializer(many=True)
+    # comments = CommentSerializer(many=True)
     post_likes = Post_ratingSerializer(many=True)
+    comments = serializers.SerializerMethodField('get_comments_no_parent_id')
     number_of_post_likes = serializers.SerializerMethodField()
-    # number_of_comment_likes = serializers.SerializerMethodField()
-    # number_of_comment_dislikes = serializers.SerializerMethodField()
+
     
 
     class Meta:
@@ -89,15 +98,13 @@ class PostSerializer(serializers.ModelSerializer):
             'comments', 
             'post_likes', 
             'number_of_post_likes'
-            # 'number_of_comment_likes',
-            # 'number_of_comment_dislikes'
             )
 
     def get_number_of_post_likes(self, obj):
         return obj.post_likes.count()
 
-    # def get_number_of_comment_likes(self, obj):
-    #     return obj.comment_likes.count()
+    def get_comments_no_parent_id(self, post):
+        qs = Comment.objects.filter(parent_id__isnull=True, post=post)
+        serializer = CommentSerializer(instance=qs, many=True)
+        return serializer.data
 
-    # def get_number_of_comment_dislikes(self, obj):
-    #     return obj.comment_likes.count()
