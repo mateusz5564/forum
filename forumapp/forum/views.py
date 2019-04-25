@@ -14,12 +14,12 @@ class ProfileView(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
 
 class PostView(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
+    queryset = Post.objects.all().order_by('-created_at')
     serializer_class = PostSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 class CommentView(viewsets.ModelViewSet):
-    queryset = Comment.objects.all()
+    queryset = Comment.objects.filter(parent_id__isnull=True)
     serializer_class = CommentSerializer
 
 class Post_ratingView(viewsets.ModelViewSet):
