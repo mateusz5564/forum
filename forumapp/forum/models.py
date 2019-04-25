@@ -70,5 +70,4 @@ def post_save_receiver(sender, instance, **kwargs):
     instance.profile.save()    
 
 
-        
     

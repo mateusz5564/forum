@@ -10,9 +10,11 @@ class UserDetailSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'email', 'is_active', 'last_login', 'date_joined')
 
 class ProfileSerializer2(serializers.ModelSerializer):
+
     class Meta:
         model = Profile
         fields = ('avatar',)
+
 
 
 class UserAllDetailSerializer(serializers.ModelSerializer):
@@ -37,10 +39,14 @@ class Comment_ratingSerializer(serializers.ModelSerializer):
 
 class Children_comentSerializer(serializers.ModelSerializer):
     user = UserAllDetailSerializer()
+    avatar_url = serializers.SerializerMethodField('get_avatar_url2')
 
     class Meta:
         model = Comment
-        fields = ('user', 'content', 'created_at')
+        fields = ('user', 'content', 'created_at', 'avatar_url')
+
+    def get_avatar_url2(self, obj):
+        return "http://127.0.0.1:8000/media/{}".format(obj.user.profil.avatar)     
 
 class CommentSerializer(serializers.ModelSerializer):
     user = UserAllDetailSerializer()
@@ -48,12 +54,14 @@ class CommentSerializer(serializers.ModelSerializer):
     children_comments = Children_comentSerializer(many=True)
     number_of_comment_likes = serializers.SerializerMethodField()
     number_of_comment_dislikes = serializers.SerializerMethodField()
+    avatar_url = serializers.SerializerMethodField('get_avatar_url2')
 
     class Meta:
         model = Comment
         fields = (
             'id',
             'user',
+            'avatar_url',
             'content',
             'created_at',
             'comment_likes',
@@ -68,6 +76,9 @@ class CommentSerializer(serializers.ModelSerializer):
 
     def get_number_of_comment_dislikes(self, obj):
         return obj.comment_likes.filter(is_positive=False).count()
+
+    def get_avatar_url2(self, obj):
+        return "http://127.0.0.1:8000/media/{}".format(obj.user.profil.avatar)    
 
 class Post_ratingSerializer(serializers.ModelSerializer):
     user = UserDetailSerializer()
@@ -107,4 +118,3 @@ class PostSerializer(serializers.ModelSerializer):
         qs = Comment.objects.filter(parent_id__isnull=True, post=post)
         serializer = CommentSerializer(instance=qs, many=True)
         return serializer.data
-

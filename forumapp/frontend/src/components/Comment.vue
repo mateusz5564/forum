@@ -1,7 +1,7 @@
 <template>
     <div class="comment-wrapper">
         <div class="user-avatar">
-            <img :src="comment.user.profil.avatar" alt="obrazek">
+            <img :src="comment.avatar_url" alt="obrazek">
         </div>
         <div class="comment-header">
             {{ comment.user.username }} {{ comment.created_at }}

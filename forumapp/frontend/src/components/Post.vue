@@ -1,7 +1,10 @@
 <template>
   <div class="wrapper">
     <div class="title-wrapper">{{ post.title }}</div>
-    <div class="details-wrapper">user: {{ post.user.username}} <br/> created_at: {{ post.created_at }}</div>
+    <div class="details-wrapper">
+      user: {{ post.user.username}} <br/> 
+      <img :src="post.user.profil.avatar" alt="obrazek">
+      created_at: {{ post.created_at }}</div>
     <div class="img-wrapper">
       <img :src="post.image" alt="obrazek">
     </div>
@@ -49,6 +52,10 @@ export default {
     background-color: rgb(59, 56, 56);
     font-size: 12px;
     padding: 10px;
+    img {
+      max-width: 60px;
+      max-height: 60px;
+    }
   }
   img{
     width: 650px;    
