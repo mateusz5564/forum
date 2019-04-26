@@ -32,9 +32,5 @@ export default {
 </script>
 
 <style lang="scss">
-  body{
-    background-color: rgb(173, 162, 162);
-    display: flex;
-    justify-content: center;
-  }
+
 </style>

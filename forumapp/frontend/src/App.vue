@@ -1,5 +1,6 @@
 <template>
-  <v-app>
+  <v-app class="grey lighten-3">
+    <Navbar />
     <v-content>
       <router-view></router-view>
     </v-content>
@@ -7,11 +8,12 @@
 </template>
 
 <script>
+import Navbar from '@/components/Navbar.vue'
 
 export default {
  name: 'app',
  components: {
-
+   Navbar
  },
  data () {
    return {
@@ -22,9 +24,5 @@ export default {
 </script>
 
 <style lang="scss">
-  body{
-    background-color: rgb(173, 162, 162);
-    display: flex;
-    justify-content: center;
-  }
+
 </style>
