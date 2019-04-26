@@ -1,34 +1,56 @@
 <template>
-    <v-container fluid>
-      <v-container>
-        <v-img 
-        width="60"
-        height="60"
-        :src="post.user.profil.avatar" 
-        alt="obrazek"
-       ></v-img>
-      {{ post.title }}
-      </v-container>
-      
-      <v-container>
-        user: {{ post.user.username}} 5h temu
-        created_at: {{ post.created_at }}
-      </v-container>
-    
-      <v-container>
-        <v-img max-width="800" :src="post.image" alt="obrazek"></v-img>
-      </v-container>
-      
-      <v-container>
-        {{ post.text }}
-      </v-container>
+    <v-container fluid pa-0 style="background-color: #616161">
+     <v-card dark >
+        <v-layout row align-center>
+          <v-flex pa-2 xs-1 md-1 align-self-center>
+            <v-img 
+              width="60"
+              height="60"
+              :src="post.user.profil.avatar" 
+              alt="obrazek"
+            ></v-img>
+          </v-flex>
+            <v-flex xs-11 md-11 class="display-1">
+              {{ post.title }}
+            </v-flex>
 
-      <v-container>
-        like | comments
-      </v-container>
+        </v-layout>
+     </v-card>
+      
+      
+      <v-layout align-center justify-start>
+        <v-flex pa-2>
+          <span class="amber--text font-weight-bold">
+            user: {{ post.user.username}} 
+          </span>
+          created_at: {{ post.created_at }}
+        </v-flex>
+      </v-layout>
     
+      <v-layout>
+        <v-flex xs-2>
+          <v-img :src="post.image" alt="obrazek"></v-img>
+        </v-flex>
+      </v-layout>
+      
+      <v-layout justify-center>
+        <v-flex>
+          {{ post.text }}
+        </v-flex>
+      </v-layout>
 
-    <Comment v-for="comment in post.comments" :key="comment.id" :comment="comment"/>
+      <v-layout justify-center>
+        <v-flex>
+          like | comments
+        </v-flex>
+      </v-layout>
+
+      <v-layout>
+        <v-flex>
+          <Comment v-for="comment in post.comments" :key="comment.id" :comment="comment"/>
+        </v-flex>
+      </v-layout>
+
     </v-container>
 </template>
 
@@ -44,45 +66,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// .wrapper {
-//   width: 650px;
-//   background-color: rgb(110, 110, 110);
-//   border: 2px;
-//   display: flex;
-//   flex-direction: column;
-//   padding: 30px;
-//   justify-content: center;
-//   box-shadow: 7px 15px 35px black;
-
-//   * {
-//     display: flex;
-//     justify-content: center;
-//   }
-
-//   .title-wrapper {
-//     color: white;
-//     background-color: rgb(36, 33, 33);
-//     font-size: 30px;
-//     padding: 20px;
-//   }
-//   .details-wrapper {
-//     color: white;
-//     background-color: rgb(59, 56, 56);
-//     font-size: 12px;
-//     padding: 10px;
-//     img {
-//       max-width: 60px;
-//       max-height: 60px;
-//     }
-//   }
-//   img{
-//     width: 650px;    
-//   }
-//   .interactions-wrapper {
-//     color: white;
-//     padding: 20px;
-//     text-align: center;
-//     background-color: rgb(109, 111, 255);
-//   }
-// }
+  .container {
+    max-width: 1000px;
+  }
 </style>
