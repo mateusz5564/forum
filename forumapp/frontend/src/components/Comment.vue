@@ -1,6 +1,6 @@
 <template>
     <v-container amber accent-2>
-        <v-layout align-center wrap>
+        <v-layout>
             <v-flex mr-2 shrink>
                 <img 
                 :src="comment.avatar_url" 
@@ -9,17 +9,11 @@
                 height="40"
                 >
             </v-flex>
-            <v-flex grow>
-                {{ comment.user.username }} {{ comment.created_at }}
-            </v-flex>
-        </v-layout>
-        <v-layout>
-            <v-flex class="flex-left" mr-2 shrink>
+            <v-flex>
+                <span class="black--text subheading font-weight-medium">
+                    {{ comment.user.username }} {{ comment.created_at }} <br/>
+                </span>
 
-            </v-flex>
-            <v-flex >
-                
-     
                 {{ comment.content }}
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias laboriosam fugit earum necessitatibus deserunt exercitationem voluptate voluptatem delectus, aut quia doloribus veritatis rem modi debitis eos dolore illo, consequatur rerum.
  
@@ -30,9 +24,10 @@
             </v-flex>
         </v-layout>
 
+        <v-layout>
             <ChildrenComment v-for="children in comment.children_comments" :key="children.id" :comment="children" />
-
         </v-layout>
+
     </v-container>
 </template>
 
@@ -48,7 +43,5 @@
 </script>
 
 <style lang="scss" scoped>
-    .flex-left{
-        min-width: 40px;
-    }
+
 </style>
