@@ -2,15 +2,15 @@
     <nav>
             
         <v-toolbar dark app>
-            <v-toolbar-title class="grey--text">
+            <v-toolbar-title class="amber--text">
                 DISCUSSR
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items>
-                <v-btn class="grey--text">Nowe</v-btn>
-                <v-btn class="grey--text">Oczekujące</v-btn>
-                <v-btn class="grey--text">Top</v-btn>
-                <v-btn class="grey--text">Losowe</v-btn>
+                <v-btn class="amber--text">Nowe</v-btn>
+                <v-btn class="amber--text">Oczekujące</v-btn>
+                <v-btn class="amber--text">Top</v-btn>
+                <v-btn class="amber--text">Losowe</v-btn>
                 <v-btn color="amber" class="black--text">Rejestracja</v-btn>
             </v-toolbar-items>
         </v-toolbar>
@@ -29,7 +29,7 @@
             </v-list-tile-avatar>
   
             <v-list-tile-content>
-              <v-list-tile-title>John Leider</v-list-tile-title>
+              <v-list-tile-title>Username</v-list-tile-title>
             </v-list-tile-content>
   
             <v-list-tile-action>
@@ -71,8 +71,8 @@
             return{
                 drawer: true,
                 items: [
-                    { title: 'Home', icon: 'dashboard' },
-                    { title: 'About', icon: 'question_answer' }
+                    { title: 'Ulubione', icon: 'dashboard' },
+                    { title: 'Moje posty', icon: 'question_answer' }
                 ],
                 mini: true,
                 right: null

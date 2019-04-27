@@ -1,7 +1,12 @@
 <template>
-    <div class="comment-wrapper">
+    <v-container amber lighten-3>
         <div class="user-avatar">
-            <img :src="comment.avatar_url" alt="obrazek">
+            <v-img 
+            :src="comment.avatar_url"
+             alt="obrazek"
+             width="40px"
+             height="40px"
+             ></v-img>
         </div>
         <div class="comment-header">
             {{ comment.user.username }} {{ comment.created_at }}
@@ -15,7 +20,7 @@
             <button>dislike</button>
             {{ comment.number_of_comment_dislikes }}
         </div>
-    </div>
+    </v-container>
 </template>
 
 <script>
@@ -25,16 +30,5 @@
 </script>
 
 <style lang="scss" scoped>
-    .comment-wrapper {
-        height: auto;
-        width: 100%;
-        background-color: red;
-        .user-avatar img{
-            max-width: 60px;
-            max-height: 60px;
-        }
-        .interaction-buttons {
-            display: inline-block;
-        }
-    }
+
 </style>

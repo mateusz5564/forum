@@ -1,10 +1,8 @@
 <template>
-  <v-app>
     <v-content>
       <router-view></router-view>
         <Post v-for="post in posts" :key="post.id" :post="post"> </Post>
     </v-content>
-  </v-app>
 </template>
 
 <script>

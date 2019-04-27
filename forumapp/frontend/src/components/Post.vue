@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid pa-0 style="background-color: #616161">
+    <v-container mb-5 fluid pa-0 style="background-color: #616161">
      <v-card dark >
         <v-layout row align-center>
           <v-flex pa-2 xs-1 md-1 align-self-center>
@@ -33,15 +33,29 @@
         </v-flex>
       </v-layout>
       
-      <v-layout justify-center>
+      <v-layout>
         <v-flex>
           {{ post.text }}
         </v-flex>
       </v-layout>
 
-      <v-layout justify-center>
-        <v-flex>
-          like | comments
+      <v-layout pa-3 justify-space-between grey lighten>
+        <v-flex ml-5 headline>
+          <v-btn fab dark color="amber">
+            <v-icon dark>thumb_up</v-icon>
+          </v-btn>
+          <span class="font-weight-light white--text body-1" >
+          121 lajków
+          </span>
+        </v-flex>
+        <!-- <v-spacer grow></v-spacer> -->
+        <v-flex mr-5 headline class="text-xs-right">
+          <v-btn fab dark color="amber">
+            <v-icon dark>comment</v-icon>
+          </v-btn>
+          <span class="white--text body-1">
+            3 komentarzy
+          </span>
         </v-flex>
       </v-layout>
 
@@ -67,6 +81,6 @@ export default {
 
 <style lang="scss" scoped>
   .container {
-    max-width: 1000px;
+    max-width: 800px;
   }
 </style>
