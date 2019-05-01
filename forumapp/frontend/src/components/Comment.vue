@@ -21,11 +21,9 @@
                 {{ comment.number_of_comment_likes }}
                 <button>dislike</button>
                 {{ comment.number_of_comment_dislikes }}
-            </v-flex>
-        </v-layout>
 
-        <v-layout>
-            <ChildrenComment v-for="children in comment.children_comments" :key="children.id" :comment="children" />
+                <ChildrenComment v-for="children in comment.children_comments" :key="children.id" :comment="children" />
+            </v-flex>
         </v-layout>
 
     </v-container>
@@ -43,5 +41,7 @@
 </script>
 
 <style lang="scss" scoped>
-
+    .child_comment_pg {
+        width: 51px;
+    }
 </style>
