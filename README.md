@@ -1,4 +1,4 @@
-# Aplikacja umożliwiająca dzielenie się obrazkami przez użytkowników
+## Aplikacja umożliwiająca dzielenie się obrazkami przez użytkowników
 
 ```
 npm install
