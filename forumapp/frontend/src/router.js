@@ -18,6 +18,11 @@ export default new Router({
       path: '/posts',
       name: 'posts',
       component: () => import('./views/Posts.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('./views/Login.vue')
     }
   ],
 });
