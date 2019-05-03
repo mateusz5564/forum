@@ -13,6 +13,7 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue'
+import { mapActions } from 'vuex';
 
 export default {
  name: 'app',
@@ -24,7 +25,16 @@ export default {
      
    }
  },
+ methods: {
+    ...mapActions([
+      'fetchAccessToken'
+    ]),
+  },
+  created() {
+    this.fetchAccessToken();
+  }   
 }
+
 </script>
 
 <style lang="scss">

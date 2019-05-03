@@ -7,11 +7,11 @@
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items>
-                <v-btn class="amber--text">Nowe</v-btn>
+                <v-btn to="/posts" class="amber--text">Nowe</v-btn>
                 <v-btn class="amber--text">Oczekujące</v-btn>
                 <v-btn class="amber--text">Top</v-btn>
                 <v-btn class="amber--text">Losowe</v-btn>
-                <v-btn color="amber" class="black--text">Rejestracja</v-btn>
+                  <v-btn color="amber" to="/login" class="black--text">Rejestracja</v-btn>
             </v-toolbar-items>
         </v-toolbar>
 
