@@ -1,19 +1,19 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import axios from 'axios';
+import Vue from 'vue'
+import Vuex from 'vuex'
+import axios from 'axios'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     accessToken: null,
-    loggignIn: false,
-    loginError: null,
+    loggingIn: false,
+    loginError: null
   },
   mutations: {
     loginStart: state => state.loggingIn = true,
     loginStop: (state, errorMessage) => {
-      state.loggignIn = false;
+      state.loggingIn = false;
       state.loginError = errorMessage;
     },
     updateAccessToken: (state, accessToken) => {
@@ -28,7 +28,6 @@ export default new Vuex.Store({
         ...loginData
       })
       .then(response => {
-        console.log(response);
         localStorage.setItem('accessToken', response.data.token);
         commit('loginStop', null);
         commit('updateAccessToken', response.data.token);
@@ -43,3 +42,7 @@ export default new Vuex.Store({
     }
   }
 })
+
+
+
+

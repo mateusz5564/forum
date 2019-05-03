@@ -1,6 +1,6 @@
 <template>
       <v-container>
-        <v-form @sumbit.prevent="login">
+        <v-form @submit.prevent="login">
             <v-layout align-content-center>
             <v-flex
             md5
