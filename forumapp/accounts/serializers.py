@@ -2,12 +2,23 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from knox.models import AuthToken
 from django.contrib.auth import authenticate
+from forum.models import Profile
+
+
+class ProfileSerializer2(serializers.ModelSerializer):
+
+    class Meta:
+        model = Profile
+        fields = ('bio', 'location', 'avatar')
+
 
 # User Serializer
 class UserSerializer(serializers.ModelSerializer):
+    profil = ProfileSerializer2()
+
     class Meta:
         model = User
-        fields = ('id', 'username', 'email')
+        fields = ('id', 'username', 'profil')
 
 
 # Register Serializer
