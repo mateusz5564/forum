@@ -1,46 +1,36 @@
 <template>
   <v-app class="grey lighten-3">
-    <Navbar />
+    <Navbar/>
     <v-content>
-      
       <v-container fluid>
         <router-view></router-view>
       </v-container>
-
     </v-content>
   </v-app>
 </template>
 
 <script>
-import Navbar from '@/components/Navbar.vue'
-import { mapActions } from 'vuex';
+import Navbar from "@/components/Navbar.vue";
+import { mapActions } from "vuex";
 
 export default {
- name: 'app',
- components: {
-   Navbar
- },
- data () {
-   return {
-     
-   }
- },
- methods: {
-    ...mapActions([
-      'fetchAccessToken',
-      'fetchUserUsername',
-      'fetchUserAvatar'
-    ]),
+  name: "app",
+  components: {
+    Navbar
+  },
+  data() {
+    return {};
+  },
+  methods: {
+    ...mapActions(["fetchAccessToken", "fetchUserUsername", "fetchUserAvatar"])
   },
   created() {
     this.fetchAccessToken();
     this.fetchUserDetails();
     this.fetchUserAvatar();
-  }   
-}
-
+  }
+};
 </script>
 
 <style lang="scss">
-
 </style>
