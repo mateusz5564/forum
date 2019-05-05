@@ -27,11 +27,13 @@ export default {
  },
  methods: {
     ...mapActions([
-      'fetchAccessToken'
+      'fetchAccessToken',
+      'fetchUserDetails'
     ]),
   },
   created() {
     this.fetchAccessToken();
+    this.fetchUserDetails();
   }   
 }
 

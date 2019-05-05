@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import router from './router';
 
 Vue.use(Vuex)
 
@@ -8,7 +9,9 @@ export default new Vuex.Store({
   state: {
     accessToken: null,
     loggingIn: false,
-    loginError: null
+    loginError: null,
+    username: null,
+    userAvatar: null,
   },
   mutations: {
     loginStart: state => state.loggingIn = true,
@@ -18,6 +21,14 @@ export default new Vuex.Store({
     },
     updateAccessToken: (state, accessToken) => {
       state.accessToken = accessToken;
+    },
+    updateUserDetails: (state, username) => {
+      state.username = username;
+      // state.userAvatar = userAvatar;
+    },
+    logout: (state) => {
+      state.accessToken = null;
+      state.username = null;
     }
   },
   actions: {
@@ -29,8 +40,11 @@ export default new Vuex.Store({
       })
       .then(response => {
         localStorage.setItem('accessToken', response.data.token);
+        localStorage.setItem('username', response.data.user.username);
         commit('loginStop', null);
         commit('updateAccessToken', response.data.token);
+        commit('updateUserDetails', response.data.user.username, null);  //trzeba dodać avatar do API
+        router.push('/home');
       })
       .catch(error => {
         commit('loginStop', error.response.data.error);
@@ -39,6 +53,15 @@ export default new Vuex.Store({
     },
     fetchAccessToken({ commit }) {
       commit('updateAccessToken', localStorage.getItem('accessToken'));
+    },
+    fetchUserDetails({ commit }) {
+      commit('updateUserDetails', localStorage.getItem('username'));
+    },
+    logout( { commit }) {
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('username');
+      commit('logout');
+      router.push('/posts');
     }
   }
 })

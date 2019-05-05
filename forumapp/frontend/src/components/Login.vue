@@ -1,5 +1,5 @@
 <template>
-      <v-container>
+ <v-container>
         <v-form @submit.prevent="login">
             <v-layout align-content-center>
             <v-flex
@@ -83,7 +83,6 @@
             }
         }
     }
-
 </script>
 
 <style lang="scss" scoped>
