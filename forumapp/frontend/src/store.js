@@ -22,13 +22,16 @@ export default new Vuex.Store({
     updateAccessToken: (state, accessToken) => {
       state.accessToken = accessToken;
     },
-    updateUserDetails: (state, username) => {
+    updateUserUsername: (state, username) => {
       state.username = username;
-      // state.userAvatar = userAvatar;
+    },
+    updateUserAvatar: (state, userAvatar) => {
+      state.userAvatar = userAvatar;
     },
     logout: (state) => {
       state.accessToken = null;
       state.username = null;
+      state.userAvatar = null;
     }
   },
   actions: {
@@ -41,25 +44,33 @@ export default new Vuex.Store({
       .then(response => {
         localStorage.setItem('accessToken', response.data.token);
         localStorage.setItem('username', response.data.user.username);
+        localStorage.setItem('userAvatar', response.data.user.profil.avatar);
         commit('loginStop', null);
         commit('updateAccessToken', response.data.token);
-        commit('updateUserDetails', response.data.user.username, null);  //trzeba dodać avatar do API
+        commit('updateUserUsername', response.data.user.username);  
+        commit('updateUserAvatar', response.data.user.profil.avatar);
         router.push('/home');
       })
       .catch(error => {
-        commit('loginStop', error.response.data.error);
+        commit('loginStop', "Nie udało się zalogować!");
         commit('updateAccessToken', null);
+        commit('updateUserUsername', null);
+        commit('updateUserAvatar', null);
       })
     },
     fetchAccessToken({ commit }) {
       commit('updateAccessToken', localStorage.getItem('accessToken'));
     },
-    fetchUserDetails({ commit }) {
-      commit('updateUserDetails', localStorage.getItem('username'));
+    fetchUserUsername({ commit }) {
+      commit('updateUserUsername', localStorage.getItem('username'));
+    },
+    fetchUserAvatar({ commit }) {
+      commit('updateUserAvatar', localStorage.getItem('userAvatar'));
     },
     logout( { commit }) {
       localStorage.removeItem('accessToken');
       localStorage.removeItem('username');
+      localStorage.removeItem('userAvatar');
       commit('logout');
       router.push('/posts');
     }

@@ -43,8 +43,24 @@
                       <v-btn color="amber" type="submit">Zaloguj się</v-btn>
                   </v-flex>
             </v-layout>
+
+            <v-layout align-content-center>
+                  <v-flex mt-3 justify-center
+                md5
+                offset-md3
+                  >
+                    <v-alert 
+                    v-if="loginError"
+                    :value="true"
+                    type="error"
+                    outline
+                    >
+                        <span>{{ loginError }}</span>
+                    </v-alert>
+                  </v-flex>
+            </v-layout>
+
         </v-form>
-        <p v-if="loginError">{{ loginError }}</p>
         <p v-if="accessToken">Login Successful</p>
   
       </v-container>

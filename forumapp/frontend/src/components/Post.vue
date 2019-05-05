@@ -21,9 +21,9 @@
       <v-layout align-center justify-start>
         <v-flex pa-2>
           <span class="amber--text font-weight-bold">
-            user: {{ post.user.username}} 
+            {{ post.user.username}} 
           </span>
-          created_at: {{ post.created_at }}
+          {{ post.created_at }}
         </v-flex>
       </v-layout>
     

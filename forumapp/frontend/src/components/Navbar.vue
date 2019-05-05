@@ -11,7 +11,7 @@
                 <v-btn to="/home" class="amber--text">Oczekujące</v-btn>
                 <v-btn class="amber--text">Top</v-btn>
                 <v-btn class="amber--text">Losowe</v-btn>
-                  <v-btn color="amber" to="/login" class="black--text">Rejestracja</v-btn>
+                  <v-btn color="amber" to="/login" class="black--text">Logowanie</v-btn>
             </v-toolbar-items>
         </v-toolbar>
 
@@ -25,7 +25,7 @@
         <v-list class="pa-0">
           <v-list-tile avatar>
             <v-list-tile-avatar>
-              <img v-if='username' src="https://randomuser.me/api/portraits/men/85.jpg">
+              <img v-if='username' :src="userAvatar">
               <v-icon v-if="!username">account_box</v-icon>
             </v-list-tile-avatar>
   
