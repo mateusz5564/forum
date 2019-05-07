@@ -26,7 +26,7 @@ export default {
   },
   created() {
     this.fetchAccessToken();
-    this.fetchUserDetails();
+    this.fetchUserUsername();
     this.fetchUserAvatar();
   }
 };

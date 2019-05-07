@@ -2,6 +2,22 @@
   <v-container>
     <v-form @submit.prevent="login">
       <v-layout align-content-center>
+        <v-flex v-if="accessToken" mt-3 mb-3 justify-center md5 offset-md3>
+          <v-alert :value="true" type="success" outline>
+            <span>Jesteś zalogowany!</span>
+          </v-alert>
+        </v-flex>
+      </v-layout>
+
+      <v-layout align-content-center>
+        <v-flex mt-3 mb-3 justify-center md5 offset-md3>
+          <v-alert v-if="loginError" :value="true" type="error" outline>
+            <span>{{ loginError }}</span>
+          </v-alert>
+        </v-flex>
+      </v-layout>
+
+      <v-layout align-content-center>
         <v-flex md5 offset-md3>
           <v-text-field v-model="username" counter label="Login" required></v-text-field>
         </v-flex>
@@ -24,22 +40,6 @@
       <v-layout align-content-center>
         <v-flex justify-center md3 offset-md5>
           <v-btn color="amber" type="submit">Zaloguj się</v-btn>
-        </v-flex>
-      </v-layout>
-
-      <v-layout align-content-center>
-        <v-flex mt-3 justify-center md5 offset-md3>
-          <v-alert v-if="loginError" :value="true" type="error" outline>
-            <span>{{ loginError }}</span>
-          </v-alert>
-        </v-flex>
-      </v-layout>
-
-      <v-layout align-content-center>
-        <v-flex v-if="accessToken" mt-3 justify-center md5 offset-md3>
-          <v-alert :value="true" type="success">
-            <span>Jesteś zalogowany!</span>
-          </v-alert>
         </v-flex>
       </v-layout>
     </v-form>

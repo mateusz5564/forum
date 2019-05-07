@@ -1,6 +1,5 @@
 <template>
-  <v-layout mt-4>
-    <v-flex shrink grey darken-2 pl-1 mr-1></v-flex>
+  <v-layout mb-3 mt-3>
     <v-flex mr-3 shrink>
       <img :src="comment.avatar_url" alt="obrazek" width="40" height="40">
     </v-flex>
@@ -11,6 +10,7 @@
       </span>
 
       {{ comment.content }}
+      
       <button>like</button>
       {{ comment.number_of_comment_likes }}
       <button>dislike</button>

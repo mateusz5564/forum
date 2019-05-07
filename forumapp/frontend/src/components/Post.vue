@@ -31,9 +31,9 @@
         <v-btn fab dark color="amber">
           <v-icon dark>thumb_up</v-icon>
         </v-btn>
-        <span class="font-weight-light white--text body-1">121 lajków</span>
+        <span class="font-weight-light white--text body-1">{{ post.number_of_post_likes }} lajków</span>
       </v-flex>
-      <!-- <v-spacer grow></v-spacer> -->
+
       <v-flex mr-5 headline class="text-xs-right">
         <v-btn fab dark color="amber">
           <v-icon dark>comment</v-icon>
