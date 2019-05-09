@@ -9,6 +9,7 @@
         <v-btn class="amber--text">Top</v-btn>
         <v-btn class="amber--text">Losowe</v-btn>
         <v-btn color="amber" to="/login" class="black--text">Logowanie</v-btn>
+        <v-btn to="/register" class="amber--text"><v-icon left>how_to_reg</v-icon>Rejestracja</v-btn>
       </v-toolbar-items>
     </v-toolbar>
 
