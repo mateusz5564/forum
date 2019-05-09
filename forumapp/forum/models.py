@@ -9,7 +9,7 @@ def user_path(instance, filename):
     return 'avatar/%s/%s' % (instance.user.username, filename)
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, related_name='profil', null=True, blank=True, on_delete = models.CASCADE)
+    user = models.OneToOneField(User, related_name='profil', on_delete = models.CASCADE)
     bio = models.TextField(max_length=100, blank=True)
     location = models.CharField(max_length=30, blank=True)
     avatar = models.ImageField(upload_to=user_path, default="/avatar/default.jpg", blank=True)
@@ -60,14 +60,14 @@ class Comment_rating(models.Model):
     def __str__(self):
         return "user: " + self.user.username + " | comment_id: " + str(self.comment.id)
 
-# @receiver(post_save, sender=User)
-# def create_profile(sender, instance, created, **kwargs):
-#     if created:
-#         Profile.objects.create(user=instance)
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
 
-# @receiver(post_save, sender=User)
-# def post_save_receiver(sender, instance, **kwargs):
-#     instance.Profile.save()    
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profil.save()    
 
 
     
