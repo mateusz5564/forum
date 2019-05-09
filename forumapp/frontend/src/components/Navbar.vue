@@ -1,5 +1,6 @@
 <template>
   <nav>
+    <!-- top menu -->
     <v-toolbar dark app>
       <v-toolbar-title class="amber--text">DISCUSSR</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -9,10 +10,13 @@
         <v-btn class="amber--text">Top</v-btn>
         <v-btn class="amber--text">Losowe</v-btn>
         <v-btn color="amber" to="/login" class="black--text">Logowanie</v-btn>
-        <v-btn to="/register" class="amber--text"><v-icon left>how_to_reg</v-icon>Rejestracja</v-btn>
+        <v-btn to="/register" class="amber--text">
+          <v-icon left>how_to_reg</v-icon>Rejestracja
+        </v-btn>
       </v-toolbar-items>
     </v-toolbar>
 
+    <!-- left menu -->
     <v-navigation-drawer v-model="drawer" :mini-variant.sync="mini" app dark>
       <v-toolbar flat class="transparent">
         <v-list class="pa-0">
@@ -47,21 +51,45 @@
           </v-list-tile>
         </template>
 
-        <v-list-tile v-if="accessToken" v-for="item in items" :key="item.title" @click>
+        <!-- profil -->
+        <v-list-tile v-if="accessToken" to="/profile" @click>
           <v-list-tile-action>
-            <v-icon>{{ item.icon }}</v-icon>
+            <v-icon>account_circle</v-icon>
           </v-list-tile-action>
 
           <v-list-tile-content>
-            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            <v-list-tile-title>Profil</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
+        <!-- ulubione -->
+        <v-list-tile v-if="accessToken" @click>
+          <v-list-tile-action>
+            <v-icon>star</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title>Ulubione</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
+        <!-- moje posty -->
+        <v-list-tile v-if="accessToken" @click>
+          <v-list-tile-action>
+            <v-icon>question_answer</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title>Moje posty</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
         <v-divider></v-divider>
 
-        <v-list-tile v-if="accessToken">
+        <!-- wylogowywanie -->
+        <v-list-tile v-if="accessToken" @click>
           <v-list-tile-action>
-            <v-icon>exit_to_app</v-icon>
+            <v-icon >exit_to_app</v-icon>
           </v-list-tile-action>
 
           <v-list-tile-content>
@@ -82,6 +110,7 @@ export default {
     return {
       drawer: true,
       items: [
+        { title: "Profil", icon: "account_circle" },
         { title: "Ulubione", icon: "star" },
         { title: "Moje posty", icon: "question_answer" }
       ],

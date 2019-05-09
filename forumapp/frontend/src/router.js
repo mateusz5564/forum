@@ -28,7 +28,12 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: () => import('./components/Register.vue')
-     }
+    },
+    {
+      path: '/profile',
+      nane: 'profile',
+      component: () => import('./views/Profile.vue')
+    }
   ],
 });
 
