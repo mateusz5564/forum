@@ -65,6 +65,8 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+
 export default {
   data() {
     return {
@@ -80,6 +82,19 @@ export default {
           
       }
     };
+  },
+  computed: {
+      ...mapState(["loggingIn", "loginError", "accessToken"])
+  },
+  methods: {
+      ...mapActions(["doRegister"]),
+      register() {
+          this.doRegister({
+              username: this.username,
+              email: this.email,
+              password: this.password
+          });
+      }
   }
 };
 </script>

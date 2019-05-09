@@ -16,7 +16,7 @@
 
           <v-flex xs3>
             <v-btn flat icon color="black">
-              <v-icon>add_box</v-icon>
+              <v-icon>add_circle</v-icon>
             </v-btn>
             {{ comment.number_of_comment_likes }} : {{ comment.number_of_comment_dislikes }}
             <v-btn flat icon color="black">
