@@ -13,7 +13,7 @@ class ProfileView(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     filter_backends = (DjangoFilterBackend,)
-    filter_fields = ('user__username')
+    filter_fields = ('user__username',)
 
 class PostView(viewsets.ModelViewSet):
     queryset = Post.objects.all().order_by('-created_at')
