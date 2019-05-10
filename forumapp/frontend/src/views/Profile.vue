@@ -41,23 +41,26 @@
             <v-icon>perm_media</v-icon>
           </v-tab>
 
-          <v-tab href="#tab-2">
+          <v-tab color="red" href="#tab-2">
             Moje komentarze
             <v-icon>forum</v-icon>
           </v-tab>
 
           <v-tab-item value="tab-1">
-            <v-card flat>
-              <v-card-text>moje posty</v-card-text>
+            <v-card color="grey lighten-2" flat >
+              <v-card-text>
+                <Post v-for="post in posts" :key="post.id" :post="post"></Post>
+              </v-card-text>
             </v-card>
           </v-tab-item>
 
           <v-tab-item value="tab-2">
-            <v-card flat>
-              <v-card-text>moje komentarze</v-card-text>
+            <v-card flat color="grey lighten-2">
+              <v-card-text>
+                <Comment v-for="comment in comments" :key="comment.id" :comment="comment"/>
+              </v-card-text>
             </v-card>
           </v-tab-item>
-
         </v-tabs>
       </v-flex>
     </v-layout>
@@ -65,14 +68,22 @@
 </template>
 
 <script>
+import Post from "../components/Post.vue";
+import Comment from "../components/Comment.vue";
 import { mapState } from "vuex";
 import axios from "axios";
 const API = "http://127.0.0.1:8000/api/";
 
 export default {
+  components: {
+    Post,
+    Comment
+  },
   data() {
     return {
-      profile: []
+      profile: [],
+      posts: [],
+      comments: []
     };
   },
   computed: {
@@ -85,11 +96,18 @@ export default {
     ])
   },
   mounted() {
-    axios
-      .get(`${API}profiles/?user__username=${this.username}`)
+    axios.get(`${API}profiles/?user__username=${this.username}`)
       .then(response => {
         this.profile = response.data;
       });
+    axios.get(`${API}posts/?user__username=${this.username}`)
+    .then(response => {
+      this.posts = response.data;
+    });
+    axios.get(`${API}comments/?user__username=${this.username}`)
+    .then(response => {
+      this.comments = response.data;
+    });
   }
 };
 </script>
