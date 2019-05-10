@@ -8,7 +8,6 @@
         <v-btn to="/posts" class="amber--text">Nowe</v-btn>
         <v-btn to="/home" class="amber--text">Oczekujące</v-btn>
         <v-btn class="amber--text">Top</v-btn>
-        <v-btn class="amber--text">Losowe</v-btn>
         <v-btn color="amber" to="/login" class="black--text">Logowanie</v-btn>
         <v-btn to="/register" class="amber--text">
           <v-icon left>how_to_reg</v-icon>Rejestracja

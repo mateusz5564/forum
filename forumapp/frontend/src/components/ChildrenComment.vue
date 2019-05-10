@@ -3,14 +3,29 @@
     <v-flex mr-3 shrink>
       <img :src="comment.avatar_url" alt="obrazek" width="40" height="40">
     </v-flex>
-    <v-flex>
-      <span class="grey--text--lighten-1 subheading font-weight-medium">
-        {{ comment.user.username }} {{ comment.created_at }}
-        <br>
-      </span>
 
-      {{ comment.content }}
-      
+    <v-flex>
+      <v-layout justify-space-between row>
+        <v-flex shrink>
+          <span class="black--text subheading font-weight-medium">{{ comment.user.username }}</span>
+          <span class="caption">{{ comment.created_at }}</span>
+        </v-flex>
+
+        <v-flex shrink>
+          <v-btn class="rew-btn" flat icon color="black">
+            <v-icon>add_circle</v-icon>
+          </v-btn>
+          {{ comment.number_of_comment_likes }}0 : 0{{ comment.number_of_comment_dislikes }}
+          <v-btn class="rew-btn" flat icon color="black">
+            <v-icon>remove_circle</v-icon>
+          </v-btn>
+        </v-flex>
+      </v-layout>
+
+      <v-layout>
+        <v-flex>{{ comment.content }}</v-flex>
+      </v-layout>
+
       <button>like</button>
       {{ comment.number_of_comment_likes }}
       <button>dislike</button>
@@ -26,4 +41,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.rew-btn {
+  margin: 0;
+}
 </style>
