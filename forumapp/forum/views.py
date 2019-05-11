@@ -26,7 +26,7 @@ class CommentView(viewsets.ModelViewSet):
     queryset = Comment.objects.filter(parent_id__isnull=True)
     serializer_class = CommentSerializer
     filter_backends = (DjangoFilterBackend,)
-    filter_fields = ('user__username',)
+    filter_fields = ('user__username', 'id')
 
 class Post_ratingView(viewsets.ModelViewSet):
     queryset = Post_rating.objects.all()
