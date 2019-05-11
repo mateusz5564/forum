@@ -44,7 +44,7 @@
 
     <v-layout>
       <v-flex>
-        <Comment v-for="comment in post.comments" :key="comment.id" :comment="comment"/>
+        <Comment v-for="comment in post.comments" :key="comment.id" :comment="comment" :post="post.id"/>
       </v-flex>
     </v-layout>
   </v-container>

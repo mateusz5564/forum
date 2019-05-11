@@ -118,3 +118,10 @@ class PostSerializer(serializers.ModelSerializer):
         qs = Comment.objects.filter(parent_id__isnull=True, post=post)
         serializer = CommentSerializer(instance=qs, many=True)
         return serializer.data
+
+
+#POST
+class PostCommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = '__all__'

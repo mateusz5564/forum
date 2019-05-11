@@ -9,9 +9,9 @@
         <v-layout justify-space-between row>
           <v-flex shrink>
             <span class="black--text subheading font-weight-medium">{{ comment.user.username }}</span>
-            <span class="caption">{{ comment.created_at }}</span>
+            <span class="caption"> {{ comment.created_at }}</span>
             <span class="body-1">
-              <a class="black--text font-weight-light" @click="expand = !expand">odpowiedz</a>
+              <a class="black--text font-weight-light" @click="expand = !expand"> odpowiedz</a>
             </span>
           </v-flex>
 
@@ -19,7 +19,7 @@
             <v-btn class="rew-btn" flat icon color="black">
               <v-icon>add_circle</v-icon>
             </v-btn>
-            {{ comment.number_of_comment_likes }} : {{ comment.number_of_comment_dislikes }}
+            {{ mark(comment.number_of_comment_likes, comment.number_of_comment_dislikes) }}
             <v-btn class="rew-btn" flat icon color="black">
               <v-icon>remove_circle</v-icon>
             </v-btn>
@@ -28,6 +28,7 @@
 
         <v-layout>
           <v-flex>{{ comment.content }}</v-flex>
+          {{this.$vnode.key}}
         </v-layout>
 
         <!-- ODPOWIEDZ -->
@@ -43,7 +44,7 @@
             <v-flex>
               <v-expand-transition>
                 <div v-show="expand">
-                  <v-textarea class="grey lighten-1"></v-textarea>
+                  <v-textarea v-model="commentContent" class="grey lighten-1"></v-textarea>
                 </div>
               </v-expand-transition>
             </v-flex>
@@ -53,7 +54,7 @@
             <v-flex shrink>
               <v-expand-transition>
                 <div v-show="expand">
-                  <v-btn color="amber" class="send-btn">Wyślij</v-btn>
+                  <v-btn color="amber" class="send-btn" @click="postComment()" type="submit">Wyślij</v-btn>
                 </div>
               </v-expand-transition>
             </v-flex>
@@ -78,18 +79,41 @@
 <script>
 import ChildrenComment from "./ChildrenComment.vue";
 import { mapState } from "vuex";
+import axios from 'axios';
+
 
 export default {
   data: () => ({
-    expand: false
+    expand: false,
+    commentContent: null,
   }),
-  props: ["comment"],
+  props: ["comment", "post"],
   components: {
     ChildrenComment
   },
-  computed: {
-    ...mapState(["username", "userAvatar"])
+  methods: {
+      mark: function(likes, dislikes) {
+      return (likes - dislikes)
+    },
+    postComment() {
+    axios.post('http://127.0.0.1:8000/api/comment/create/', {
+      content: this.commentContent,
+      user: this.userId,
+      post: this.post,
+      parent_id: this.comment.id
+    }).then((response) => {
+      this.expand = false;
+      this.$vnode.key += 1;
+    })
+    .catch((e) => {
+      console.error(e)
+    })
   }
+  },
+  computed: {
+    ...mapState(["username", "userAvatar", "userId"])
+  },
+
 };
 </script>
 

@@ -57,7 +57,7 @@
           <v-tab-item value="tab-2">
             <v-card flat color="grey lighten-2">
               <v-card-text>
-                <Comment v-for="comment in comments" :key="comment.id" :comment="comment"/>
+                <Comment v-for="comment in comments" :key="comment.id" :comment="comment" :post="posts.id"/>
               </v-card-text>
             </v-card>
           </v-tab-item>
