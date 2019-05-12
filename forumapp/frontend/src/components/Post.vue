@@ -1,50 +1,98 @@
 <template>
-  <v-container mb-5 fluid pa-0 style="background-color: #616161">
-    <v-card dark>
-      <v-layout row align-center>
-        <v-flex pa-2 xs-1 md-1 align-self-center>
-          <v-img width="60" height="60" :src="post.user.profil.avatar" alt="obrazek"></v-img>
-        </v-flex>
-        <v-flex xs-11 md-11 class="display-1">{{ post.title }}</v-flex>
-      </v-layout>
-    </v-card>
-
-    <v-layout align-center justify-start>
-      <v-flex pa-2>
-        <span class="amber--text font-weight-bold">{{ post.user.username}}</span>
-        {{ post.created_at }}
-      </v-flex>
-    </v-layout>
-
-    <v-layout>
-      <v-flex xs-2>
-        <v-img :src="post.image" alt="obrazek"></v-img>
-      </v-flex>
-    </v-layout>
-
-    <v-layout>
-      <v-flex>{{ post.text }}</v-flex>
-    </v-layout>
-
-    <v-layout pa-3 justify-space-between grey lighten>
-      <v-flex ml-5 headline>
-        <v-btn fab dark color="amber">
-          <v-icon dark>thumb_up</v-icon>
-        </v-btn>
-        <span class="font-weight-light white--text body-1">{{ post.number_of_post_likes }} lajków</span>
-      </v-flex>
-
-      <v-flex mr-5 headline class="text-xs-right">
-        <v-btn fab dark color="amber">
-          <v-icon dark>comment</v-icon>
-        </v-btn>
-        <span class="white--text body-1">3 komentarzy</span>
-      </v-flex>
-    </v-layout>
-
+  <v-container mb-5 pa-0 style="background-color: #616161">
     <v-layout>
       <v-flex>
-        <Comment v-for="comment in post.comments" :key="comment.id" :comment="comment" :post="post.id"/>
+        <v-card dark>
+          <v-layout row align-center>
+            <v-flex pa-2 xs-1 md-1 align-self-center>
+              <v-img width="60" height="60" :src="postData[0].user.profil.avatar" alt="obrazek"></v-img>
+            </v-flex>
+            <v-flex xs-11 md-11 class="display-1">{{ postData[0].title }}</v-flex>
+          </v-layout>
+        </v-card>
+
+        <v-layout align-center justify-start>
+          <v-flex pa-2>
+            <span class="amber--text font-weight-bold">{{ postData[0].user.username}}</span>
+            {{ postData[0].created_at }}
+          </v-flex>
+        </v-layout>
+
+        <v-layout>
+          <v-flex xs-2>
+            <v-img :src="postData[0].image" alt="obrazek"></v-img>
+          </v-flex>
+        </v-layout>
+
+        <v-layout>
+          <v-flex>{{ postData[0].text }}</v-flex>
+        </v-layout>
+
+        <v-layout pa-3 justify-space-between grey lighten>
+          <v-flex ml-5 headline>
+            <v-btn fab dark color="amber">
+              <v-icon dark>thumb_up</v-icon>
+            </v-btn>
+            <span
+              class="font-weight-light white--text body-1"
+            >{{ postData[0].number_of_post_likes }} lajków</span>
+          </v-flex>
+
+          <v-flex mr-5 headline class="text-xs-right">
+            <v-btn fab dark color="amber">
+              <v-icon dark>comment</v-icon>
+            </v-btn>
+            <span class="white--text body-1">3 komentarzy</span>
+          </v-flex>
+        </v-layout>
+
+        <v-layout>
+          <v-flex>
+            <span class="body-1">
+              <a class="black--text font-weight-light" @click="expand = !expand">odpowiedz</a>
+            </span>
+          </v-flex>
+        </v-layout>
+
+        <!-- ODPOWIEDŹ -->
+
+        <v-layout v-if="expand" mt-2>
+          <v-flex mr-2 mt-1 ml-4 shrink>
+            <v-expand-transition>
+              <div v-show="expand">
+                <img :src="userAvatar" alt="obrazek" width="40" height="40">
+              </div>
+            </v-expand-transition>
+          </v-flex>
+          <v-flex mr-4>
+            <v-expand-transition>
+              <div v-show="expand">
+                <v-textarea v-model="commentContent" class="grey lighten-1"></v-textarea>
+              </div>
+            </v-expand-transition>
+          </v-flex>
+        </v-layout>
+
+        <v-layout class="xd" justify-end>
+          <v-flex mr-3 shrink>
+            <v-expand-transition>
+              <div v-show="expand">
+                <v-btn color="amber" class="send-btn" @click="postComment()" type="submit">Wyślij</v-btn>
+              </div>
+            </v-expand-transition>
+          </v-flex>
+        </v-layout>
+
+        <v-layout>
+          <v-flex>
+            <Comment
+              v-for="comment in postData[0].comments"
+              :key="comment.id"
+              :comment="comment"
+              :post="postData[0].id"
+            />
+          </v-flex>
+        </v-layout>
       </v-flex>
     </v-layout>
   </v-container>
@@ -52,17 +100,65 @@
 
 <script>
 import Comment from "./Comment.vue";
+import { mapState } from "vuex";
+import axios from "axios";
+const API = "http://127.0.0.1:8000/api/";
 
 export default {
+  data() {
+    return {
+      expand: false,
+      postData: []
+    };
+  },
   props: ["post"],
   components: {
     Comment
+  },
+  methods: {
+    mark: function(likes, dislikes) {
+      return likes - dislikes;
+    },
+    postComment() {
+      axios
+        .post("http://127.0.0.1:8000/api/comment/create/", {
+          content: this.commentContent,
+          user: this.userId,
+          post: this.post.id
+        })
+        .then(response => {
+          this.expand = false;
+          this.fetchData();
+        })
+        .catch(e => {
+          console.error(e);
+        });
+    },
+    fetchData() {
+      axios.get(`${API}posts/?id=${this.post.id}`).then(response => {
+        this.postData = response.data;
+      });
+    }
+  },
+  mounted() {
+    this.fetchData();
+  },
+  computed: {
+    ...mapState(["username", "userAvatar", "userId"])
   }
 };
 </script>
 
+
+
 <style lang="scss" scoped>
 .container {
   max-width: 650px;
+}
+.child_comment_pg {
+  width: 2px;
+}
+a:hover {
+  color: rgb(255, 194, 11) !important;
 }
 </style>

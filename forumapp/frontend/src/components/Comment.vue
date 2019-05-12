@@ -11,7 +11,7 @@
             <span class="black--text subheading font-weight-medium">{{ commentData[0].user.username }}</span>
             <span class="caption"> {{ commentData[0].created_at }}</span>
             <span class="body-1">
-              <a class="black--text font-weight-light" @click="expand = !expand"> odpowiedz</a>
+              <a class="black--text font-weight-light" @click="expand = !expand" > odpowiedz</a>
             </span>
           </v-flex>
 
@@ -26,13 +26,16 @@
           </v-flex>
         </v-layout>
 
-        <v-layout>
-          <v-flex>{{ commentData[0].content}}</v-flex>
+      <v-layout wrap>
+        <v-flex red>
+        
+        </v-flex>
+      </v-layout>
+          {{ commentData[0].content}}
 
-        </v-layout>
 
         <!-- ODPOWIEDZ -->
-        <div>
+        <div ref="buttn">
           <v-layout mt-2>
             <v-flex mr-2 mt-1 shrink>
               <v-expand-transition>
@@ -132,6 +135,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container {
+  max-width: 650px;
+}
 .child_comment_pg {
   width: 2px;
 }
