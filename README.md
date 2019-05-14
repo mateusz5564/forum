@@ -1,7 +1,7 @@
 ## Aplikacja umożliwiająca dzielenie się obrazkami przez użytkowników
 
 ```
-*forumapp/forum/frontend*
+__forumapp/forum/frontend__
 npm install
 
 npm run serve
