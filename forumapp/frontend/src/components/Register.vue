@@ -3,7 +3,7 @@
     <v-form @submit.prevent="register">
       <v-layout>
         <v-flex mt-3 mb-3 justify-center md4 offset-md4>
-          <v-alert :value="true" type="success" outline>
+          <v-alert v-if="accessToken" :value="true" type="success" outline>
             <span>Pomyślnie zarejestrowano!</span>
           </v-alert>
         </v-flex>
@@ -11,8 +11,8 @@
 
       <v-layout>
         <v-flex mt-3 mb-3 justify-center md4 offset-md4>
-          <v-alert :value="true" type="error" outline>
-            <span>Nie udało się zarejestrować!</span>
+          <v-alert v-if="registerError" :value="true" type="error" outline>
+            <span>{{ registerError }}</span>
           </v-alert>
         </v-flex>
       </v-layout>
@@ -84,7 +84,7 @@ export default {
     };
   },
   computed: {
-      ...mapState(["loggingIn", "loginError", "accessToken"])
+      ...mapState(["loggingIn", "loginError", "accessToken", "registerError"])
   },
   methods: {
       ...mapActions(["doRegister"]),

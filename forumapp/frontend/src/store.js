@@ -11,6 +11,7 @@ export default new Vuex.Store({
     loggingIn: false,
     register: false,
     loginError: null,
+    registerError: null,
     username: null,
     userId: null,
     userAvatar: null,
@@ -20,6 +21,9 @@ export default new Vuex.Store({
     loginStop: (state, errorMessage) => {
       state.loggingIn = false;
       state.loginError = errorMessage;
+    },
+    registerStop: (state, errorMessage) => {
+      state.registerError = errorMessage;
     },
     updateAccessToken: (state, accessToken) => {
       state.accessToken = accessToken;
@@ -72,6 +76,7 @@ export default new Vuex.Store({
       };
       })
     },
+
     //rejestracja
     doRegister({ commit }, registerData) {
       commit('loginStart');
@@ -84,6 +89,7 @@ export default new Vuex.Store({
         localStorage.setItem('username', response.data.user.username);
         localStorage.setItem('userId', response.data.user.id);
         localStorage.setItem('userAvatar', response.data.user.profil.avatar);
+        commit('registerStop', null);
         commit('loginStop', null);
         commit('updateAccessToken', response.data.token);
         commit('updateUserUsername', response.data.user.username); 
@@ -92,6 +98,7 @@ export default new Vuex.Store({
         router.push('/home');
       })
       .catch(error => {
+        commit('registerStop', "Nie udało się zarejestrować!");
         commit('loginStop', "Nie udało się zalogować!");
         commit('updateAccessToken', null);
         commit('updateUserUsername', null);
@@ -117,7 +124,7 @@ export default new Vuex.Store({
       localStorage.removeItem('userId');
       localStorage.removeItem('userAvatar');
       commit('logout');
-      router.push('/posts');
+      router.push('/login');
     }
   }
 })

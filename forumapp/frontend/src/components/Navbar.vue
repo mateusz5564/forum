@@ -8,8 +8,8 @@
         <v-btn to="/posts" class="amber--text">Nowe</v-btn>
         <v-btn to="/home" class="amber--text">Oczekujące</v-btn>
         <v-btn class="amber--text">Top</v-btn>
-        <v-btn color="amber" to="/login" class="black--text">Logowanie</v-btn>
-        <v-btn to="/register" class="amber--text">
+        <v-btn v-if="!accessToken" color="amber" to="/login" class="black--text">Logowanie</v-btn>
+        <v-btn v-if="!accessToken" to="/register" class="amber--text">
           <v-icon left>how_to_reg</v-icon>Rejestracja
         </v-btn>
       </v-toolbar-items>

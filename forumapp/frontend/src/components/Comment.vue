@@ -9,7 +9,7 @@
         <v-layout justify-space-between row>
           <v-flex shrink>
             <span class="black--text subheading font-weight-medium">{{ commentData[0].user.username }}</span>
-            <span class="caption"> {{ commentData[0].created_at }}</span>
+            <span class="caption"> {{ calculateDate(commentData[0].created_at) }}</span>
             <span class="body-1">
               <a class="black--text font-weight-light" @click="expand = !expand" > odpowiedz</a>
             </span>
@@ -122,6 +122,27 @@ export default {
      .then(response => {
        this.commentData = response.data
      })
+    },
+    calculateDate(date) {
+      var dateNow = new Date();
+      var createdAt = new Date(date);
+
+      var diffSeconds = Math.abs(dateNow - createdAt) / 1000;
+
+      var months = Math.floor(diffSeconds / 2592000);
+      var weeks = Math.floor(diffSeconds / 604800);
+      var days = Math.floor(diffSeconds / 86400);
+      var hours = Math.floor(diffSeconds / 3600);
+      var minutes = Math.floor(diffSeconds / 60);
+      var seconds = Math.floor(diffSeconds / 1);
+
+      var choose = null;
+
+       if (seconds < 59) return seconds + (seconds == 1 ? " sekundę temu" : " sek temu");
+       if (minutes < 59) return minutes + (minutes == 1 ? " minutę temu" : " min temu");
+       if (hours < 59) return hours + (hours == 1 ? " godzinę temu" : " godz temu");
+       if (days < 7) return days + (days == 1 ? " dzień temu" : " dni temu");
+       if (weeks < 4) return weeks + (weeks == 1 ? " tydzień temu" : " tyg temu");
     }
   },
   mounted() {
