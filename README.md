@@ -1,7 +1,7 @@
 ## Aplikacja umożliwiająca dzielenie się obrazkami przez użytkowników
 
 ```
-/forum/frontend
+[mydirectory](forumapp/forum/frontend)
 npm install
 
 npm run serve
@@ -10,6 +10,6 @@ npm run serve
 ```
 pip install -r requirements.txt
 
-/forum
+forumapp/forum
 python manage.py runserver
 ```
