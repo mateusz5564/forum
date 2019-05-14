@@ -42,7 +42,7 @@
       </v-flex>
 
       <v-flex sm2>
-        <v-btn class="black--text">Anuluj</v-btn>
+        <v-btn class="black--text" @click="clearForm()">Anuluj</v-btn>
       </v-flex>
     </v-layout>
 
@@ -99,16 +99,24 @@ export default {
         this.imageUrl = "";
       }
     },
+    clearForm() {
+      this.imageName = "";
+      this.imageFile = "";
+      this.imageUrl = "";
+      this.title = "";
+      this.text = "";
+    },
     postMeme() {
       const fd = new FormData();
       fd.append("image", this.imageFile, this.imageFile.name);
       fd.append("title", this.title);
       fd.append("user", this.userId);
-      axios.post("http://127.0.0.1:8000/api/post/create/", fd)
+      axios
+        .post("http://127.0.0.1:8000/api/post/create/", fd)
         .then(response => {
           this.expand = false;
           this.dialog = !this.dialog;
-          // this.fetchData();
+          this.clearForm();
         })
         .catch(e => {
           console.error(e);

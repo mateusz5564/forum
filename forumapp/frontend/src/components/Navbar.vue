@@ -61,14 +61,14 @@
           </v-list-tile-content>
         </v-list-tile>
 
-        <!-- ulubione -->
-        <v-list-tile v-if="accessToken" @click>
+        <!-- dodaj post-->
+        <v-list-tile v-if="accessToken" to="/newPost" @click>
           <v-list-tile-action>
-            <v-icon>star</v-icon>
+            <v-icon>add_to_photos</v-icon>
           </v-list-tile-action>
 
           <v-list-tile-content>
-            <v-list-tile-title>Ulubione</v-list-tile-title>
+            <v-list-tile-title>Dodaj post</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 

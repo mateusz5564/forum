@@ -33,6 +33,11 @@ export default new Router({
       path: '/profile',
       nane: 'profile',
       component: () => import('./views/Profile.vue')
+    },
+    {
+      path: '/newPost',
+      name: "nemPost",
+      component: () => import('./components/AddPost.vue')
     }
   ],
 });
