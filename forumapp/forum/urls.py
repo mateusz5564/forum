@@ -10,6 +10,7 @@ router.register('comments', views.CommentView)
 router.register('posts_rating', views.Post_ratingView)
 router.register('comment_rating', views.Comment_ratingView)
 router.register('comment/create', views.CommentCreateAPIView)
+router.register('post/create', views.PostCreateAPIView)
 
 urlpatterns = [
     path('api/', include(router.urls)),

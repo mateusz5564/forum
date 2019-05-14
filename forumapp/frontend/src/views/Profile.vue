@@ -2,7 +2,7 @@
   <v-container grey lighten-2>
     <v-layout>
       <v-flex shrink mr-4>
-        <v-avatar size="300px">
+        <v-avatar size="200px">
           <img :src="userAvatar" alt="avatar">
         </v-avatar>
       </v-flex>
