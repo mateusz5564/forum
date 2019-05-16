@@ -9,9 +9,9 @@
         <v-layout justify-space-between row>
           <v-flex shrink>
             <span class="black--text subheading font-weight-medium">{{ commentData[0].user.username }}</span>
-            <span class="caption"> {{ calculateDate(commentData[0].created_at) }}</span>
+            <span class="caption ml-1"> {{ calculateDate(commentData[0].created_at) }}</span>
             <span class="body-1">
-              <a v-if="accessToken" class="black--text font-weight-light" @click="expand = !expand" > odpowiedz</a>
+              <a v-if="accessToken" class="amber--text text--darken-3 font-weight-light" @click="expand = !expand" > odpowiedz</a>
             </span>
           </v-flex>
 
@@ -141,7 +141,7 @@ export default {
 
        if (seconds < 59) return seconds + (seconds == 1 ? " sekundę temu" : " sek temu");
        if (minutes < 59) return minutes + (minutes == 1 ? " minutę temu" : " min temu");
-       if (hours < 59) return hours + (hours == 1 ? " godzinę temu" : " godz temu");
+       if (hours < 24) return hours + (hours == 1 ? " godzinę temu" : " godz temu");
        if (days < 7) return days + (days == 1 ? " dzień temu" : " dni temu");
        if (weeks < 4) return weeks + (weeks == 1 ? " tydzień temu" : " tyg temu");
     }

@@ -13,10 +13,10 @@
 
         <v-layout align-center justify-start>
           <v-flex pa-2>
-            <span class="amber--text font-weight-bold">{{ postData[0].user.username}}</span>
-            {{ calculateDate(postData[0].created_at) }}
+            <span class="amber--text font-weight-bold subheading">{{ postData[0].user.username}}</span>
+            <span class="ml-1 grey--text text--lighten-2 caption"> {{ calculateDate(postData[0].created_at) }}</span>
           </v-flex>
-        </v-layout>
+        </v-layout> 
 
         <v-layout>
           <v-flex xs-2>
@@ -47,9 +47,9 @@
         </v-layout>
 
         <v-layout>
-          <v-flex>
-            <span class="body-1">
-              <a v-if="accessToken" class="black--text font-weight-light" @click="expand = !expand">odpowiedz</a>
+          <v-flex text-xs-center grey lighten-1 pb-2 pt-2>
+            <span class="body-1 ml-2">
+              <a v-if="accessToken" class="white--text font-weight-bold subheading" @click="expand = !expand">odpowiedz <v-icon color="amber lighten-2" >arrow_downward</v-icon></a>
             </span>
           </v-flex>
         </v-layout>
@@ -182,6 +182,6 @@ export default {
   width: 2px;
 }
 a:hover {
-  color: rgb(255, 194, 11) !important;
+  color: rgb(255, 190, 11) !important;
 }
 </style>
