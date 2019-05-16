@@ -56,7 +56,7 @@
 
         <!-- ODPOWIEDŹ -->
 
-        <v-layout v-if="expand" mt-2>
+        <v-layout grey v-if="expand" pt-4>
           <v-flex mr-2 mt-1 ml-4 shrink>
             <v-expand-transition>
               <div v-show="expand">
@@ -73,7 +73,7 @@
           </v-flex>
         </v-layout>
 
-        <v-layout class="xd" justify-end>
+        <v-layout grey class="xd" justify-end>
           <v-flex mr-3 shrink>
             <v-expand-transition>
               <div v-show="expand">

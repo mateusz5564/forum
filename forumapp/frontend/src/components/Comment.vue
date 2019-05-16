@@ -19,7 +19,9 @@
             <v-btn class="rew-btn" flat icon color="black">
               <v-icon>add_circle</v-icon>
             </v-btn>
-            {{ mark(commentData[0].number_of_comment_likes, commentData[0].number_of_comment_dislikes) }}
+            <span class="subheading font-weight-medium ">
+              {{ mark(commentData[0].number_of_comment_likes, commentData[0].number_of_comment_dislikes) }}
+            </span>
             <v-btn class="rew-btn" flat icon color="black">
               <v-icon>remove_circle</v-icon>
             </v-btn>
@@ -36,7 +38,7 @@
 
         <!-- ODPOWIEDZ -->
         <div ref="buttn">
-          <v-layout mt-2>
+          <v-layout mt-2 >
             <v-flex mr-2 mt-1 shrink>
               <v-expand-transition>
                 <div v-show="expand">

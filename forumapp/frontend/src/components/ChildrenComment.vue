@@ -15,8 +15,9 @@
           <v-btn class="rew-btn" flat icon color="black">
             <v-icon>add_circle</v-icon>
           </v-btn>
-          0
-            <!-- {{ mark(comment.number_of_comment_likes, comment.number_of_comment_dislikes) }} -->
+          <span class="subheading font-weight-medium">
+          {{ mark(comment.number_of_comment_likes, comment.number_of_comment_dislikes) }}
+          </span>
           <v-btn class="rew-btn" flat icon color="black">
             <v-icon>remove_circle</v-icon>
           </v-btn>

@@ -39,11 +39,20 @@ class Comment_ratingSerializer(serializers.ModelSerializer):
 
 class Children_comentSerializer(serializers.ModelSerializer):
     user = UserAllDetailSerializer()
+    comment_likes = Comment_ratingSerializer(many=True)
     avatar_url = serializers.SerializerMethodField('get_avatar_url2')
+    number_of_comment_likes = serializers.SerializerMethodField()
+    number_of_comment_dislikes = serializers.SerializerMethodField()
 
     class Meta:
         model = Comment
-        fields = ('user', 'content', 'created_at', 'avatar_url')
+        fields = ('user', 'content', 'created_at', 'avatar_url', 'comment_likes', "number_of_comment_likes", "number_of_comment_dislikes")
+
+    def get_number_of_comment_likes(self, obj):
+        return obj.comment_likes.filter(is_positive=True).count()
+
+    def get_number_of_comment_dislikes(self, obj):
+        return obj.comment_likes.filter(is_positive=False).count()
 
     def get_avatar_url2(self, obj):
         return "http://127.0.0.1:8000/media/{}".format(obj.user.profil.avatar)     
@@ -72,7 +81,7 @@ class CommentSerializer(serializers.ModelSerializer):
         )
 
     def get_number_of_comment_likes(self, obj):
-        return obj.comment_likes.count()
+        return obj.comment_likes.filter(is_positive=True).count()
 
     def get_number_of_comment_dislikes(self, obj):
         return obj.comment_likes.filter(is_positive=False).count()
