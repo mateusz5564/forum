@@ -49,7 +49,7 @@
         <v-layout>
           <v-flex>
             <span class="body-1">
-              <a class="black--text font-weight-light" @click="expand = !expand">odpowiedz</a>
+              <a v-if="accessToken" class="black--text font-weight-light" @click="expand = !expand">odpowiedz</a>
             </span>
           </v-flex>
         </v-layout>
@@ -128,6 +128,7 @@ export default {
         })
         .then(response => {
           this.expand = false;
+          this.commentContent = null;
           this.fetchData();
         })
         .catch(e => {
@@ -166,7 +167,7 @@ export default {
     this.fetchData();
   },
   computed: {
-    ...mapState(["username", "userAvatar", "userId"])
+    ...mapState(["username", "userAvatar", "userId", "accessToken"])
     }
 };
 </script>

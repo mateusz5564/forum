@@ -11,7 +11,7 @@
             <span class="black--text subheading font-weight-medium">{{ commentData[0].user.username }}</span>
             <span class="caption"> {{ calculateDate(commentData[0].created_at) }}</span>
             <span class="body-1">
-              <a class="black--text font-weight-light" @click="expand = !expand" > odpowiedz</a>
+              <a v-if="accessToken" class="black--text font-weight-light" @click="expand = !expand" > odpowiedz</a>
             </span>
           </v-flex>
 
@@ -110,6 +110,7 @@ export default {
         parent_id: this.comment.id
       }).then((response) => {
         this.expand = false;
+        this.commentContent = null;
         this.fetchData();
       })
       .catch((e) => {
@@ -149,7 +150,7 @@ export default {
     this.fetchData();
   },
   computed: {
-    ...mapState(["username", "userAvatar", "userId"])
+    ...mapState(["username", "userAvatar", "userId", "accessToken"])
   },
 
 };

@@ -13,21 +13,23 @@
         <v-layout pl-3 pb-1>
           <v-flex>
             <v-icon>outlined_flag</v-icon>
-            {{ profile[0].user.date_joined}}
+            {{ calculateDate(profile[0].user.date_joined) }}
           </v-flex>
         </v-layout>
 
         <v-layout pl-3 pb-3>
-          <v-flex>
+          <v-flex v-if="profile[0].location">
             <v-icon>location_on</v-icon>
             {{ profile[0].location }}
           </v-flex>
         </v-layout>
 
         <v-layout
+          v-if="profile[0].bio"
           pl-3
           pb-1
-        >{{ profile[0].bio }} Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit iure dolorum accusamus iusto ut eveniet quidem debitis deleniti sunt et.</v-layout>
+        >{{ profile[0].bio }} Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit iure dolorum accusamus iusto ut eveniet quidem debitis deleniti sunt et.
+        </v-layout>
       </v-flex>
     </v-layout>
 
@@ -108,6 +110,29 @@ export default {
     .then(response => {
       this.comments = response.data;
     });
+  },
+  methods: {
+    calculateDate(date) {
+      var dateNow = new Date();
+      var createdAt = new Date(date);
+
+      var diffSeconds = Math.abs(dateNow - createdAt) / 1000;
+
+      var months = Math.floor(diffSeconds / 2592000);
+      var weeks = Math.floor(diffSeconds / 604800);
+      var days = Math.floor(diffSeconds / 86400);
+      var hours = Math.floor(diffSeconds / 3600);
+      var minutes = Math.floor(diffSeconds / 60);
+      var seconds = Math.floor(diffSeconds / 1);
+
+      var choose = null;
+
+       if (seconds < 59) return seconds + (seconds == 1 ? " sekundę temu" : " sek temu");
+       if (minutes < 59) return minutes + (minutes == 1 ? " minutę temu" : " min temu");
+       if (hours < 59) return hours + (hours == 1 ? " godzinę temu" : " godz temu");
+       if (days < 7) return days + (days == 1 ? " dzień temu" : " dni temu");
+       if (weeks < 4) return weeks + (weeks == 1 ? " tydzień temu" : " tyg temu");
+    }
   }
 };
 </script>

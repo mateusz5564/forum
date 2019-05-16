@@ -4,7 +4,7 @@
 
     <v-container>
       <v-layout>
-        <v-flex>
+        <v-flex v-if="accessToken">
           <AddPost/>
         </v-flex>
       </v-layout>
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import Post from "../components/Post.vue";
 import AddPost from "../components/AddPost.vue";
 import axios from "axios";
@@ -39,7 +40,12 @@ export default {
     axios.get(`${API}posts/`).then(response => {
       this.posts = response.data;
     });
-  }
+  },
+  computed: {
+    ...mapState([
+      "accessToken"
+    ])
+  },
 };
 </script>
 

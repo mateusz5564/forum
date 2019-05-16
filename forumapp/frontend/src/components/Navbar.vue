@@ -73,7 +73,7 @@
         </v-list-tile>
 
         <!-- moje posty -->
-        <v-list-tile v-if="accessToken" @click>
+        <!-- <v-list-tile v-if="accessToken" @click>
           <v-list-tile-action>
             <v-icon>question_answer</v-icon>
           </v-list-tile-action>
@@ -81,7 +81,7 @@
           <v-list-tile-content>
             <v-list-tile-title>Moje posty</v-list-tile-title>
           </v-list-tile-content>
-        </v-list-tile>
+        </v-list-tile> -->
 
         <v-divider></v-divider>
 
