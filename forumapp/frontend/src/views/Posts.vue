@@ -52,6 +52,13 @@ export default {
       this.posts = response.data;
     });
   },
+  methods: {
+    fetchData() {
+      axios.get(`${API}posts/`).then(response => {
+      this.posts = response.data;
+    });
+    }
+  },
   computed: {
     ...mapState(["accessToken"])
   }

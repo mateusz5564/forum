@@ -14,9 +14,11 @@
         <v-layout align-center justify-start>
           <v-flex pa-2>
             <span class="amber--text font-weight-bold subheading">{{ postData[0].user.username}}</span>
-            <span class="ml-1 grey--text text--lighten-2 caption"> {{ calculateDate(postData[0].created_at) }}</span>
+            <span
+              class="ml-1 grey--text text--lighten-2 caption"
+            >{{ calculateDate(postData[0].created_at) }}</span>
           </v-flex>
-        </v-layout> 
+        </v-layout>
 
         <v-layout>
           <v-flex xs-2>
@@ -30,7 +32,7 @@
 
         <v-layout pa-3 justify-space-between grey lighten>
           <v-flex ml-5 headline>
-            <v-btn fab dark color="amber">
+            <v-btn fab dark color="amber" @click="rateComment()">
               <v-icon dark>thumb_up</v-icon>
             </v-btn>
             <span
@@ -49,7 +51,14 @@
         <v-layout>
           <v-flex text-xs-center grey lighten-1 pb-2 pt-2>
             <span class="body-1 ml-2">
-              <a v-if="accessToken" class="white--text font-weight-bold subheading" @click="expand = !expand">odpowiedz <v-icon color="amber lighten-2" >arrow_downward</v-icon></a>
+              <a
+                v-if="accessToken"
+                class="white--text font-weight-bold subheading"
+                @click="expand = !expand"
+              >
+                odpowiedz
+                <v-icon color="amber lighten-2">arrow_downward</v-icon>
+              </a>
             </span>
           </v-flex>
         </v-layout>
@@ -140,7 +149,29 @@ export default {
         this.postData = response.data;
       });
     },
-     calculateDate(date) {
+    rateComment() {
+      axios
+        .get(`${API}post_rating/create/?user=${this.userId}&post=${this.post.id}`)
+        .then(response => {
+          if (response.data.length == 0) {
+            axios
+              .post(`${API}post_rating/create/`, {
+                user: this.userId,
+                post: this.post.id
+              })
+              .then(response => {
+                this.postData = response.data;
+                this.fetchData();
+              });
+          } else {
+            console.log(this.post.id)
+            console.log("już głosowałeś");
+            console.log(response.data);
+          }
+        })
+        .catch(e => {});
+    },
+    calculateDate(date) {
       var dateNow = new Date();
       var createdAt = new Date(date);
 
@@ -155,12 +186,15 @@ export default {
 
       var choose = null;
 
-       if (seconds < 59) return seconds + (seconds == 1 ? " sekundę temu" : " sek temu");
-       if (minutes < 59) return minutes + (minutes == 1 ? " minutę temu" : " min temu");
-       if (hours < 59) return hours + (hours == 1 ? " godzinę temu" : " godz temu");
-       if (days < 7) return days + (days == 1 ? " dzień temu" : " dni temu");
-       if (weeks < 4) return weeks + (weeks == 1 ? " tydzień temu" : " tyg temu");
-
+      if (seconds < 59)
+        return seconds + (seconds == 1 ? " sekundę temu" : " sek temu");
+      if (minutes < 59)
+        return minutes + (minutes == 1 ? " minutę temu" : " min temu");
+      if (hours < 59)
+        return hours + (hours == 1 ? " godzinę temu" : " godz temu");
+      if (days < 7) return days + (days == 1 ? " dzień temu" : " dni temu");
+      if (weeks < 4)
+        return weeks + (weeks == 1 ? " tydzień temu" : " tyg temu");
     }
   },
   mounted() {
@@ -168,7 +202,7 @@ export default {
   },
   computed: {
     ...mapState(["username", "userAvatar", "userId", "accessToken"])
-    }
+  }
 };
 </script>
 
