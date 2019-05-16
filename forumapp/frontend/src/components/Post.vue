@@ -4,10 +4,10 @@
       <v-flex>
         <v-card dark>
           <v-layout row align-center>
-            <v-flex pa-2 xs-1 md-1 align-self-center>
+            <v-flex pa-2 xs-1 md-1 shrink align-self-center>
               <v-img width="60" height="60" :src="postData[0].user.profil.avatar" alt="obrazek"></v-img>
             </v-flex>
-            <v-flex xs-11 md-11 class="display-1">{{ postData[0].title }}</v-flex>
+            <v-flex xs-11 md-11 class="headline">{{ postData[0].title }}</v-flex>
           </v-layout>
         </v-card>
 
@@ -42,7 +42,7 @@
             <v-btn fab dark color="amber">
               <v-icon dark>comment</v-icon>
             </v-btn>
-            <span class="white--text body-1">3 komentarzy</span>
+            <span class="white--text body-1">{{ postData[0].number_of_comments }} komentarzy</span>
           </v-flex>
         </v-layout>
 

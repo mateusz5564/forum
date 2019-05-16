@@ -94,6 +94,7 @@ class PostSerializer(serializers.ModelSerializer):
     post_likes = Post_ratingSerializer(many=True)
     comments = serializers.SerializerMethodField('get_comments_no_parent_id')
     number_of_post_likes = serializers.SerializerMethodField()
+    number_of_comments = serializers.SerializerMethodField()
 
     
 
@@ -108,11 +109,15 @@ class PostSerializer(serializers.ModelSerializer):
             'user', 
             'comments', 
             'post_likes', 
-            'number_of_post_likes'
+            'number_of_post_likes',
+            'number_of_comments'
             )
 
     def get_number_of_post_likes(self, obj):
         return obj.post_likes.count()
+
+    def get_number_of_comments(self, obj):
+        return obj.comments.count()
 
     def get_comments_no_parent_id(self, post):
         qs = Comment.objects.filter(parent_id__isnull=True, post=post)

@@ -2,9 +2,19 @@
   <v-content>
     <router-view></router-view>
 
-    <v-container>
+    <v-container class="size">
       <v-layout>
-        <v-flex v-if="accessToken">
+        <v-flex mb-4>
+          <div class="text-xs-center">
+            <v-btn color="black" outline @click="showAdd = !showAdd">
+              <v-icon left>input</v-icon>
+              Dodaj post
+            </v-btn>
+          </div>
+        </v-flex>
+      </v-layout>
+      <v-layout>
+        <v-flex v-if="accessToken && showAdd">
           <AddPost/>
         </v-flex>
       </v-layout>
@@ -33,7 +43,8 @@ export default {
   },
   data() {
     return {
-      posts: []
+      posts: [],
+      showAdd: false
     };
   },
   mounted() {
@@ -42,12 +53,13 @@ export default {
     });
   },
   computed: {
-    ...mapState([
-      "accessToken"
-    ])
-  },
+    ...mapState(["accessToken"])
+  }
 };
 </script>
 
 <style lang="scss">
+.size {
+  max-width: 700px;
+}
 </style>
