@@ -49,7 +49,6 @@
     <v-dialog v-model="dialog" max-width="290">
       <v-card>
         <v-card-title class="headline green--text darken-1">Dodano post!</v-card-title>
-        <!-- <v-card-text>test</v-card-text> -->
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="green darken-1" flat="flat" @click.native="dialog = false">Close</v-btn>
@@ -62,6 +61,7 @@
 <script>
 import axios from "axios";
 import { mapState } from "vuex";
+import { bus } from "../main";
 
 export default {
   data: () => ({
@@ -78,6 +78,9 @@ export default {
   methods: {
     pickFile() {
       this.$refs.image.click();
+    },
+    updatePosts: function () {
+      bus.$emit('updatePosts');
     },
     onFilePicked(e) {
       const files = e.target.files;
@@ -117,6 +120,7 @@ export default {
           this.expand = false;
           this.dialog = !this.dialog;
           this.clearForm();
+          this.updatePosts();
         })
         .catch(e => {
           console.error(e);

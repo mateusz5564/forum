@@ -14,8 +14,12 @@
         </v-flex>
       </v-layout>
       <v-layout>
-        <v-flex v-if="accessToken && showAdd">
-          <AddPost/>
+        <v-flex v-if="accessToken" v-show="showAdd">
+        <v-expand-transition>
+          <div v-show="showAdd">
+            <AddPost/>
+          </div>
+        </v-expand-transition>
         </v-flex>
       </v-layout>
 
@@ -33,6 +37,7 @@ import { mapState } from "vuex";
 import Post from "../components/Post.vue";
 import AddPost from "../components/AddPost.vue";
 import axios from "axios";
+import { bus } from "../main";
 const API = "http://127.0.0.1:8000/api/";
 
 export default {
@@ -51,6 +56,11 @@ export default {
     axios.get(`${API}posts/`).then(response => {
       this.posts = response.data;
     });
+
+    bus.$on("updatePosts", () => {
+      this.fetchData();
+    });
+
   },
   methods: {
     fetchData() {

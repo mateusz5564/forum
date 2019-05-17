@@ -41,7 +41,7 @@
           </v-flex>
 
           <v-flex mr-5 headline class="text-xs-right">
-            <v-btn fab dark color="amber">
+            <v-btn fab dark color="amber" @click="expandComments = !expandComments">
               <v-icon dark>comment</v-icon>
             </v-btn>
             <span class="white--text body-1">{{ postData[0].number_of_comments }} komentarzy</span>
@@ -92,14 +92,19 @@
           </v-flex>
         </v-layout>
 
+
         <v-layout>
-          <v-flex>
-            <Comment
-              v-for="comment in postData[0].comments"
-              :key="comment.id"
-              :comment="comment"
-              :post="postData[0].id"
-            />
+          <v-flex v-show="expandComments">
+            <v-expand-transition>
+              <div v-show="expandComments">
+                <Comment
+                  v-for="comment in postData[0].comments"
+                  :key="comment.id"
+                  :comment="comment"
+                  :post="postData[0].id"
+                />
+              </div>
+            </v-expand-transition>
           </v-flex>
         </v-layout>
       </v-flex>
@@ -117,6 +122,7 @@ export default {
   data() {
     return {
       expand: false,
+      expandComments: false,
       postData: []
     };
   },
@@ -151,7 +157,9 @@ export default {
     },
     rateComment() {
       axios
-        .get(`${API}post_rating/create/?user=${this.userId}&post=${this.post.id}`)
+        .get(
+          `${API}post_rating/create/?user=${this.userId}&post=${this.post.id}`
+        )
         .then(response => {
           if (response.data.length == 0) {
             axios
@@ -164,7 +172,7 @@ export default {
                 this.fetchData();
               });
           } else {
-            console.log(this.post.id)
+            console.log(this.post.id);
             console.log("już głosowałeś");
             console.log(response.data);
           }
