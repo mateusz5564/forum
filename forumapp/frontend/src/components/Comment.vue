@@ -16,13 +16,13 @@
           </v-flex>
 
           <v-flex shrink>
-            <v-btn class="rew-btn" flat icon color="black">
+            <v-btn class="rew-btn" flat icon color="black" @click="likeIt()">
               <v-icon>add_circle</v-icon>
             </v-btn>
             <span class="subheading font-weight-medium ">
               {{ mark(commentData[0].number_of_comment_likes, commentData[0].number_of_comment_dislikes) }}
             </span>
-            <v-btn class="rew-btn" flat icon color="black">
+            <v-btn class="rew-btn" flat icon color="black" @click="dislikeIt()">
               <v-icon>remove_circle</v-icon>
             </v-btn>
           </v-flex>
@@ -85,6 +85,7 @@
 import ChildrenComment from "./ChildrenComment.vue";
 import { mapState } from "vuex";
 import axios from 'axios';
+import { bus } from "../main";
 const API = "http://127.0.0.1:8000/api/";
 
 
@@ -126,6 +127,52 @@ export default {
        this.commentData = response.data
      })
     },
+    likeIt() {
+      axios
+        .get(`${API}comments_rating/create/?user=${this.userId}&comment=${this.comment.id}`)
+        .then(response => {
+          if (response.data.length == 0) {
+            axios
+              .post(`${API}comments_rating/create/`, {
+                is_positive: true,
+                user: this.userId,
+                comment: this.comment.id,
+              })
+              .then(response => {
+                this.commentData = response.data;
+                this.fetchData();
+              });
+          } else {
+            console.log(this.comment.id)
+            console.log("już głosowałeś");
+            console.log(response.data);
+          }
+        })
+        .catch(e => {});
+    }, 
+    dislikeIt() {
+      axios
+        .get(`${API}comments_rating/create/?user=${this.userId}&comment=${this.comment.id}`)
+        .then(response => {
+          if (response.data.length == 0) {
+            axios
+              .post(`${API}comments_rating/create/`, {
+                is_positive: false,
+                user: this.userId,
+                comment: this.comment.id
+              })
+              .then(response => {
+                this.commentData = response.data;
+                this.fetchData();
+              });
+          } else {
+            console.log(this.comment.id)
+            console.log("już głosowałeś");
+            console.log(response.data);
+          }
+        })
+        .catch(e => {});
+    },       
     calculateDate(date) {
       var dateNow = new Date();
       var createdAt = new Date(date);
@@ -150,6 +197,9 @@ export default {
   },
   mounted() {
     this.fetchData();
+    bus.$on("updateComment", () => {
+      this.fetchData();
+    })
   },
   computed: {
     ...mapState(["username", "userAvatar", "userId", "accessToken"])

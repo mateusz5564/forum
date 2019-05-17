@@ -46,7 +46,7 @@ class Children_comentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ('user', 'content', 'created_at', 'avatar_url', 'comment_likes', "number_of_comment_likes", "number_of_comment_dislikes")
+        fields = ('id', 'user', 'content', 'created_at', 'avatar_url', 'comment_likes', "number_of_comment_likes", "number_of_comment_dislikes")
 
     def get_number_of_comment_likes(self, obj):
         return obj.comment_likes.filter(is_positive=True).count()
@@ -149,4 +149,9 @@ class PostMemeSerializer(serializers.ModelSerializer):
 class PostRatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post_rating
+        fields = '__all__'
+
+class CommentRatingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment_rating
         fields = '__all__'

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import viewsets, permissions, generics
 from .models import Profile, Post, Comment, Post_rating, Comment_rating
 from django.contrib.auth.models import User
-from .serializers import PostRatingSerializer, UserAllDetailSerializer, UserDetailSerializer, ProfileSerializer, PostSerializer, CommentSerializer, Post_ratingSerializer, Comment_ratingSerializer, PostCommentSerializer, PostMemeSerializer
+from .serializers import CommentRatingSerializer, PostRatingSerializer, UserAllDetailSerializer, UserDetailSerializer, ProfileSerializer, PostSerializer, CommentSerializer, Post_ratingSerializer, Comment_ratingSerializer, PostCommentSerializer, PostMemeSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 
 class UserView(viewsets.ModelViewSet):
@@ -58,10 +58,10 @@ class PostRatingCreateAPIView(viewsets.ModelViewSet):
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ('user', 'post')
 
-    def post(self, request, *args, **kwargs):
-        userid = request.data['user']
-        postid = request.data['post']
-        qs = Post_rating.objects.filter(user="userId", post="postid")
-        print("21312312" + qs)
+class CommentRatingCreateAPIView(viewsets.ModelViewSet):
+    queryset = Comment_rating.objects.all()
+    serializer_class = CommentRatingSerializer
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('user', 'comment')
 
  
