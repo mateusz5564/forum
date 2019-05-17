@@ -124,7 +124,7 @@ export default {
       axios
      .get(`${API}comments/?id=${this.comment.id}`)
      .then(response => {
-       this.commentData = response.data
+       this.commentData = response.data;
      })
     },
     likeIt() {
@@ -196,10 +196,13 @@ export default {
     }
   },
   mounted() {
-    this.fetchData();
+    // this.fetchData();
     bus.$on("updateComment", () => {
       this.fetchData();
     })
+  },
+  created() {
+    this.fetchData();
   },
   computed: {
     ...mapState(["username", "userAvatar", "userId", "accessToken"])

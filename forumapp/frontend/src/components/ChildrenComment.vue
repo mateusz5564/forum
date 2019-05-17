@@ -45,7 +45,7 @@ export default {
       return (likes - dislikes)
     },
     updateLikes: function () {
-      bus.$emit('updateComment');
+      bus.$emit('updateComment', this.comment.id);
     },
     likeIt() {
       axios
