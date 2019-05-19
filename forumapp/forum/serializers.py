@@ -147,6 +147,7 @@ class PostMemeSerializer(serializers.ModelSerializer):
         model = Post
         fields = '__all__'
 
+
 class PostRatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post_rating
@@ -156,3 +157,9 @@ class CommentRatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment_rating
         fields = '__all__'
+
+#UPDATE
+class UpdateMemeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = ('id', 'is_accepted')

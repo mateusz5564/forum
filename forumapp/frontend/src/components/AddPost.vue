@@ -114,6 +114,9 @@ export default {
       fd.append("image", this.imageFile, this.imageFile.name);
       fd.append("title", this.title);
       fd.append("user", this.userId);
+      if(this.isStaff) {
+        fd.append("is_accepted", true);
+      }
       axios
         .post("http://127.0.0.1:8000/api/post/create/", fd)
         .then(response => {
@@ -128,7 +131,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["username", "userAvatar", "userId"])
+    ...mapState(["username", "userAvatar", "userId", "isStaff"])
   }
 };
 </script>

@@ -18,7 +18,18 @@
               class="ml-1 grey--text text--lighten-2 caption"
             >{{ calculateDate(postData[0].created_at) }}</span>
           </v-flex>
+          <v-flex v-if="isStaff && waiting()" shrink>
+            <v-btn flat small depressed outline @click="changeStatus()">akceptuj</v-btn>
+          </v-flex>
         </v-layout>
+
+        <v-layout>
+          <v-flex v-if="postData[0].text" black pa-3 class="display-1 amber--text text--accent-5">
+            {{ postData[0].text }}
+          </v-flex>
+        </v-layout>
+
+
 
         <v-layout>
           <v-flex xs-2>
@@ -26,9 +37,6 @@
           </v-flex>
         </v-layout>
 
-        <v-layout>
-          <v-flex>{{ postData[0].text }}</v-flex>
-        </v-layout>
 
         <v-layout pa-3 justify-space-between grey lighten>
           <v-flex ml-5 headline>
@@ -116,6 +124,7 @@
 import Comment from "./Comment.vue";
 import { mapState } from "vuex";
 import axios from "axios";
+import { bus } from "../main";
 const API = "http://127.0.0.1:8000/api/";
 
 export default {
@@ -134,6 +143,9 @@ export default {
     mark: function(likes, dislikes) {
       return likes - dislikes;
     },
+    waiting: function () {
+      return this.$route.path.indexOf('/waiting') === 0
+    },
     postComment() {
       axios
         .post("http://127.0.0.1:8000/api/comment/create/", {
@@ -144,7 +156,20 @@ export default {
         .then(response => {
           this.expand = false;
           this.commentContent = null;
+          this.expandComments = true;
           this.fetchData();
+        })
+        .catch(e => {
+          console.error(e);
+        });
+    },
+    changeStatus() {
+      axios
+        .put(`http://127.0.0.1:8000/api/post/update/${this.post.id}/`, {
+          is_accepted: true
+        })
+        .then(response => {
+          this.updatePosts();
         })
         .catch(e => {
           console.error(e);
@@ -154,6 +179,9 @@ export default {
       axios.get(`${API}posts/?id=${this.post.id}`).then(response => {
         this.postData = response.data;
       });
+    },
+    updatePosts: function () {
+      bus.$emit('updatePosts');
     },
     rateComment() {
       axios
@@ -198,7 +226,7 @@ export default {
         return seconds + (seconds == 1 ? " sekundę temu" : " sek temu");
       if (minutes < 59)
         return minutes + (minutes == 1 ? " minutę temu" : " min temu");
-      if (hours < 59)
+      if (hours < 24)
         return hours + (hours == 1 ? " godzinę temu" : " godz temu");
       if (days < 7) return days + (days == 1 ? " dzień temu" : " dni temu");
       if (weeks < 4)
@@ -209,7 +237,7 @@ export default {
     this.fetchData();
   },
   computed: {
-    ...mapState(["username", "userAvatar", "userId", "accessToken"])
+    ...mapState(["username", "userAvatar", "userId", "isStaff", "accessToken"])
   }
 };
 </script>

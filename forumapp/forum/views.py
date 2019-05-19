@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import viewsets, permissions, generics
 from .models import Profile, Post, Comment, Post_rating, Comment_rating
 from django.contrib.auth.models import User
-from .serializers import CommentRatingSerializer, PostRatingSerializer, UserAllDetailSerializer, UserDetailSerializer, ProfileSerializer, PostSerializer, CommentSerializer, Post_ratingSerializer, Comment_ratingSerializer, PostCommentSerializer, PostMemeSerializer
+from .serializers import UpdateMemeSerializer, CommentRatingSerializer, PostRatingSerializer, UserAllDetailSerializer, UserDetailSerializer, ProfileSerializer, PostSerializer, CommentSerializer, Post_ratingSerializer, Comment_ratingSerializer, PostCommentSerializer, PostMemeSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 
 class UserView(viewsets.ModelViewSet):
@@ -52,6 +52,7 @@ class PostCreateAPIView(viewsets.ModelViewSet):
         image = Post.objects.create(image=file)
         return HttpResponse(json.dumps({'message': "Uploaded"}), status=200)
 
+
 class PostRatingCreateAPIView(viewsets.ModelViewSet):
     queryset = Post_rating.objects.all()
     serializer_class = PostRatingSerializer
@@ -64,4 +65,9 @@ class CommentRatingCreateAPIView(viewsets.ModelViewSet):
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ('user', 'comment')
 
- 
+
+#UPDATE 
+class PostUpdateAPIView(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = UpdateMemeSerializer
+

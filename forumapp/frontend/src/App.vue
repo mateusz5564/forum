@@ -22,14 +22,14 @@ export default {
     return {};
   },
   methods: {
-    ...mapActions(["fetchAccessToken", "fetchUserUsername", "fetchUserRole", "fetchUserId", "fetchUserAvatar"])
+    ...mapActions(["fetchAccessToken", "fetchUserUsername", "fetchUserId", "fetchUserAvatar", "fetchUserRole"])
   },
   created() {
     this.fetchAccessToken();
     this.fetchUserUsername();
-    this.fetchUserRole();
     this.fetchUserId();
     this.fetchUserAvatar();
+    this.fetchUserRole();
   }
 };
 </script>
