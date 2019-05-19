@@ -6,7 +6,7 @@
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-btn to="/posts" class="amber--text">Nowe</v-btn>
-        <v-btn to="/home" class="amber--text">Oczekujące</v-btn>
+        <v-btn to="/waiting" class="amber--text">Oczekujące</v-btn>
         <v-btn class="amber--text">Top</v-btn>
         <v-btn v-if="!accessToken" color="amber" to="/login" class="black--text">Logowanie</v-btn>
         <v-btn v-if="!accessToken" to="/register" class="amber--text">

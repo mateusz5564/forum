@@ -22,11 +22,12 @@ export default {
     return {};
   },
   methods: {
-    ...mapActions(["fetchAccessToken", "fetchUserUsername", "fetchUserId", "fetchUserAvatar"])
+    ...mapActions(["fetchAccessToken", "fetchUserUsername", "fetchUserRole", "fetchUserId", "fetchUserAvatar"])
   },
   created() {
     this.fetchAccessToken();
     this.fetchUserUsername();
+    this.fetchUserRole();
     this.fetchUserId();
     this.fetchUserAvatar();
   }

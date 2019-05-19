@@ -53,7 +53,7 @@ export default {
     };
   },
   mounted() {
-    axios.get(`${API}posts/?is_accepted=true`).then(response => {
+    axios.get(`${API}posts/?is_accepted=false`).then(response => {
       this.posts = response.data;
     });
 
@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     fetchData() {
-      axios.get(`${API}posts/?is_accepted=true`).then(response => {
+      axios.get(`${API}posts/?is_accepted=false`).then(response => {
       this.posts = response.data;
     });
     }

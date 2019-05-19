@@ -36,8 +36,13 @@ export default new Router({
     },
     {
       path: '/newPost',
-      name: "nemPost",
+      name: "newPost",
       component: () => import('./components/AddPost.vue')
+    },
+    {
+      path: '/waiting',
+      name: 'waitingPosts',
+      component: () => import('./views/Waiting.vue')
     }
   ],
 });

@@ -9,6 +9,7 @@ export default new Vuex.Store({
   state: {
     accessToken: null,
     loggingIn: false,
+    isStaff: false,
     register: false,
     loginError: null,
     registerError: null,
@@ -37,9 +38,13 @@ export default new Vuex.Store({
     updateUserAvatar: (state, userAvatar) => {
       state.userAvatar = userAvatar;
     },
+    updateUserRole: (state, userRole) => {
+      state.isStaff = userRole;
+    },
     logout: (state) => {
       state.accessToken = null;
       state.username = null;
+      state.isStaff = false;
       state.userId = null;
       state.userAvatar = null;
       state.loginError = null;
@@ -56,11 +61,13 @@ export default new Vuex.Store({
       .then(response => {
         localStorage.setItem('accessToken', response.data.token);
         localStorage.setItem('username', response.data.user.username);
+        localStorage.setItem('isStaff', response.data.user.is_staff);
         localStorage.setItem('userId', response.data.user.id);
         localStorage.setItem('userAvatar', response.data.user.profil.avatar);
         commit('loginStop', null);
         commit('updateAccessToken', response.data.token);
-        commit('updateUserUsername', response.data.user.username);  
+        commit('updateUserUsername', response.data.user.username); 
+        commit('updateUserStatus', response.data.user.isStaff);
         commit('updateUserId', response.data.user.id);
         commit('updateUserAvatar', response.data.user.profil.avatar);
         router.push('/home');
@@ -71,6 +78,7 @@ export default new Vuex.Store({
         commit('loginStop', "Nie udało się zalogować!");
         commit('updateAccessToken', null);
         commit('updateUserUsername', null);
+        commit('updateUserStatus', false);
         commit('updateUserId', null);
         commit('updateUserAvatar', null);
       };
@@ -87,12 +95,14 @@ export default new Vuex.Store({
       .then(response => {
         localStorage.setItem('accessToken', response.data.token);
         localStorage.setItem('username', response.data.user.username);
+        localStorage.setItem('isStaff', response.data.user.is_staff);
         localStorage.setItem('userId', response.data.user.id);
         localStorage.setItem('userAvatar', response.data.user.profil.avatar);
         commit('registerStop', null);
         commit('loginStop', null);
         commit('updateAccessToken', response.data.token);
         commit('updateUserUsername', response.data.user.username); 
+        commit('updateUserStatus', false);
         commit('updateUserId', response.data.user.id); 
         commit('updateUserAvatar', response.data.user.profil.avatar);
         router.push('/home');
@@ -102,6 +112,7 @@ export default new Vuex.Store({
         commit('loginStop', "Nie udało się zalogować!");
         commit('updateAccessToken', null);
         commit('updateUserUsername', null);
+        commit('updateUserStatus', false);
         commit('updateUserId', null);
         commit('updateUserAvatar', null);
       })
@@ -112,6 +123,9 @@ export default new Vuex.Store({
     fetchUserUsername({ commit }) {
       commit('updateUserUsername', localStorage.getItem('username'));
     },
+    fetchUserRole({ commit }) {
+      commit('updateUserRole', localStorage.getItem('isStaff'))
+    },
     fetchUserId({ commit }) {
       commit('updateUserId', localStorage.getItem('userId'));
     },
@@ -121,6 +135,7 @@ export default new Vuex.Store({
     logout( { commit }) {
       localStorage.removeItem('accessToken');
       localStorage.removeItem('username');
+      localStorage.removeItem('isStaff');
       localStorage.removeItem('userId');
       localStorage.removeItem('userAvatar');
       commit('logout');
