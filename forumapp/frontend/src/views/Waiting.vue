@@ -4,7 +4,7 @@
 
     <v-container class="size">
       <v-layout>
-        <v-flex mb-4>
+        <v-flex mb-4 v-if="accessToken">
           <div class="text-xs-center">
             <v-btn color="black" outline @click="showAdd = !showAdd">
               <v-icon left>input</v-icon>

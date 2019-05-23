@@ -26,7 +26,7 @@
 
     <v-layout>
       <v-flex xs12>
-        <v-textarea v-model="text" box label="Tekst" value></v-textarea>
+        <v-textarea v-model="text" label="Tekst" value></v-textarea>
       </v-flex>
     </v-layout>
 
@@ -114,6 +114,7 @@ export default {
       fd.append("image", this.imageFile, this.imageFile.name);
       fd.append("title", this.title);
       fd.append("user", this.userId);
+      fd.append("text", this.text);
       if(this.isStaff) {
         fd.append("is_accepted", true);
       }

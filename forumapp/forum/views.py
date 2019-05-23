@@ -19,8 +19,7 @@ class PostView(viewsets.ModelViewSet):
     queryset = Post.objects.all().order_by('-created_at')
     serializer_class = PostSerializer
     filter_backends = (DjangoFilterBackend,)
-    filter_fields = ('user__username', 'id', "is_accepted")
-    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    filter_fields = ('user__username', 'id', "is_accepted", )
 
 class CommentView(viewsets.ModelViewSet):
     queryset = Comment.objects.filter(parent_id__isnull=True)

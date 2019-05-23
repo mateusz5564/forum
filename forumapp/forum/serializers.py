@@ -116,11 +116,11 @@ class PostSerializer(serializers.ModelSerializer):
             'created_at', 
             'image', 
             'text', 
+            'number_of_post_likes',
+            'number_of_comments',
             'user', 
             'comments', 
             'post_likes', 
-            'number_of_post_likes',
-            'number_of_comments'
             )
 
     def get_number_of_post_likes(self, obj):

@@ -24,8 +24,12 @@
         </v-layout>
 
         <v-layout>
-          <v-flex v-if="postData[0].text" black pa-3 class="display-1 amber--text text--accent-5">
-            {{ postData[0].text }}
+          <v-flex v-if='postData[0].text !== "null"' black pa-3 class="display-1 amber--text text--accent-5">
+            <div class="formText">
+
+              {{ postData[0].text }}
+
+            </div>
           </v-flex>
         </v-layout>
 
@@ -253,5 +257,9 @@ export default {
 }
 a:hover {
   color: rgb(255, 190, 11) !important;
+}
+.formText{
+  overflow: hidden;
+  white-space: wrap;
 }
 </style>

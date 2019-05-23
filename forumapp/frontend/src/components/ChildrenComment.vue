@@ -4,7 +4,7 @@
       <img :src="comment.avatar_url" alt="obrazek" width="40" height="40">
     </v-flex>
 
-    <v-flex>
+    <v-flex class="formText">
       <v-layout justify-space-between row>
         <v-flex shrink>
           <span class="black--text subheading font-weight-medium">{{ comment.user.username }}</span>
@@ -124,5 +124,9 @@ export default {
 <style lang="scss" scoped>
 .rew-btn {
   margin: 0;
+}
+.formText{
+  overflow: hidden;
+  white-space: wrap;
 }
 </style>
