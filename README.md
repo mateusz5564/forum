@@ -18,7 +18,9 @@ npm run serve
 ```
 /forum ->
 pip install -r requirements.txt
+```
 
+```
 /forum/forumapp ->
 python manage.py runserver
 ```
