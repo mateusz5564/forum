@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'knox',
     'accounts',
     'corsheaders',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -122,6 +123,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',)
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
     # 'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',)
 }

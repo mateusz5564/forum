@@ -10,14 +10,39 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
+      path: '*',
       name: 'home',
-      component: Home
+      component: () => import('./views/Posts.vue')
     },
     {
       path: '/posts',
       name: 'posts',
       component: () => import('./views/Posts.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('./components/Login.vue')
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import('./components/Register.vue')
+    },
+    {
+      path: '/profile',
+      nane: 'profile',
+      component: () => import('./views/Profile.vue')
+    },
+    {
+      path: '/newPost',
+      name: "newPost",
+      component: () => import('./components/AddPost.vue')
+    },
+    {
+      path: '/waiting',
+      name: 'waitingPosts',
+      component: () => import('./views/Waiting.vue')
     }
   ],
 });
