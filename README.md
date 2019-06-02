@@ -16,7 +16,7 @@ npm run serve
 ```
 
 ```
-/forum
+/forum ->
 pip install -r requirements.txt
 
 /forum/forumapp ->
